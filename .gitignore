@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+
+outputs/
+datasets/
+logs/
+models/
+hf_cache/
+
+*.log

@@ -1,0 +1,462 @@
+Stop Before the Flip - Project Context (Continuity File)
+
+Version: 2026-07-14
+
+Purpose
+
+This file is intended to be given to a new LLM chat so it can continue
+this project with full context.
+
+The assistant should behave as an experienced ML research mentor and
+continue from the current state instead of restarting setup.
+
+------------------------------------------------------------------------
+
+Research Goal
+
+Working title:
+
+Stop Before the Flip: Predicting Harmful Overthinking in Large Reasoning
+Models
+
+Core research question:
+
+Can we predict, from the current reasoning prefix, whether continuing to
+reason will turn a currently correct answer into an incorrect one, while
+still allowing productive self-correction?
+
+This is NOT a generic early stopping project.
+
+The prediction target is the future probability of a negative flip
+(Correct → Incorrect).
+
+The project aims to build:
+
+1.  Prefix-level dataset
+2.  Hazard predictor
+3.  Stopping controller
+4.  Cross-model evaluation
+5.  ACL/EMNLP-quality research codebase
+
+------------------------------------------------------------------------
+
+Research Roadmap
+
+Phase 1 - Run a local reasoning model. - Save reasoning traces.
+
+Phase 2 - Extract: - logits - hidden states - attentions - token
+probabilities
+
+Phase 3 - Detect: - answer changes - positive flips - negative flips
+
+Phase 4 - Build prefix-level dataset.
+
+Phase 5 - Train hazard predictor.
+
+Phase 6 - Evaluate stopping controller.
+
+------------------------------------------------------------------------
+
+Current Hardware
+
+GPU: RTX 4060 Laptop 8 GB VRAM
+
+RAM: 16 GB
+
+Storage
+
+C: ~24 GB free
+
+A: ~170 GB free
+
+Windows 11
+
+------------------------------------------------------------------------
+
+Python Environment
+
+Using Miniconda.
+
+Environment:
+
+llmresearch
+
+Python:
+
+3.11.15
+
+PyTorch:
+
+CUDA 12.8 build
+
+GPU verified.
+
+torch.cuda.is_available() == True
+
+Device:
+
+NVIDIA GeForce RTX 4060 Laptop GPU
+
+------------------------------------------------------------------------
+
+Folder Structure
+
+A:
+
+datasets/ hf_cache/ outputs/ project/
+
+Inside project/
+
+configs/ experiments/ logs/ models/ notebooks/ scripts/ src/ README.md
+requirements.txt
+
+------------------------------------------------------------------------
+
+Hugging Face
+
+Authentication completed.
+
+HF cache redirected to:
+
+A:_cache
+
+------------------------------------------------------------------------
+
+Important Constraints
+
+DO NOT use:
+
+-   Ollama
+-   llama.cpp
+-   GGUF
+
+Reason:
+
+Need access to
+
+-   hidden states
+-   logits
+-   attentions
+-   token probabilities
+-   generation control
+
+Must use Hugging Face Transformers.
+
+------------------------------------------------------------------------
+
+Software Philosophy
+
+Avoid monolithic scripts.
+
+Reusable architecture:
+
+src/ loader.py generator.py tokenizer.py stopping.py features.py
+datasets.py utils.py
+
+scripts/ 01_load_model.py 02_generate_trace.py
+03_extract_hidden_states.py 04_extract_logits.py …
+
+------------------------------------------------------------------------
+
+Git
+
+Repository should be initialized.
+
+Never commit:
+
+datasets/ outputs/ hf_cache/ logs/ models/
+
+Commit only source code.
+
+------------------------------------------------------------------------
+
+Model Strategy
+
+Primary development model:
+
+DeepSeek-R1-Distill-Qwen-7B
+
+Reason:
+
+Closer to the models studied in the ACL 2026 harmful-overthinking paper.
+
+Later evaluate on:
+
+Qwen3-8B Thinking
+
+Goal:
+
+Demonstrate cross-model generalization.
+
+Before downloading any model, verify the best Transformers-compatible
+checkpoint and quantization format for Windows + RTX 4060 8GB.
+
+------------------------------------------------------------------------
+
+Quantization
+
+Target:
+
+4-bit NF4
+
+Using:
+
+BitsAndBytes
+
+Need full access to hidden states and logits.
+
+------------------------------------------------------------------------
+
+Immediate Next Tasks
+
+1.  Choose the exact Hugging Face checkpoint.
+2.  Write scripts/01_load_model.py.
+3.  Implement:
+    -   automatic GPU detection
+    -   4-bit loading
+    -   deterministic seed
+    -   logging
+    -   VRAM reporting
+4.  Run one reasoning prompt.
+5.  Save reasoning trace.
+6.  Save metadata.
+
+Do NOT use transformers.pipeline().
+
+Use:
+
+AutoTokenizer AutoModelForCausalLM model.generate()
+
+------------------------------------------------------------------------
+
+Long-Term Experimental Pipeline
+
+Question ↓ Generate reasoning ↓ Reasoning trace ↓ Hidden states ↓ Logits
+↓ Attention ↓ Answer tracking ↓ Positive / Negative flip detection ↓
+Dataset creation ↓ Hazard prediction model ↓ Stopping controller ↓ Paper
+experiments
+
+------------------------------------------------------------------------
+
+Expectations for the Assistant
+
+Act as a senior ML researcher.
+
+Priorities:
+
+-   Reproducibility
+-   Clean engineering
+-   Publication-quality methodology
+-   Modular code
+-   Explain every design choice
+-   Avoid shortcuts that reduce research flexibility
+
+Do not restart environment setup unless something is broken. Continue
+from the current project state.
+
+
+========================================================================
+UPDATE (2026-07-14) - CURRENT PROJECT STATE
+========================================================================
+
+IMPORTANT: This section supersedes earlier planning where they conflict.
+
+Major Decisions
+---------------
+1. The environment has been successfully configured.
+2. The project architecture is now considered STABLE (v1.0).
+3. Development will begin on a smaller reasoning model and later scale to
+   larger models.
+4. The codebase must support multiple reasoning models through a common
+   adapter interface.
+
+Environment Status
+------------------
+Completed:
+
+- Python 3.11.15
+- CUDA-enabled PyTorch (2.11.0+cu128)
+- RTX 4060 Laptop (8 GB VRAM)
+- Hugging Face authentication
+- bitsandbytes installed
+- Project directory created
+- Git repository initialized
+- HF cache redirected to A:\LLMResearch\hf_cache
+
+Storage Notes
+-------------
+C: drive has limited free space.
+Large assets must remain outside the repository.
+
+Repository Layout
+-----------------
+A:\LLMResearch
+
+datasets/
+hf_cache/
+outputs/
+
+project/
+    configs/
+    experiments/
+    models/
+    scripts/
+    src/
+        adapters/
+    ARCHITECTURE.md
+    PROJECT_CONTEXT.md
+    RESEARCH_LOG.md
+    TODO.md
+    README.md
+    environment.yml
+    requirements.txt
+    requirements-lock.txt
+
+Architecture (LOCKED)
+---------------------
+
+The project will use an Adapter architecture.
+
+Each supported reasoning model must implement the same interface.
+
+Examples:
+
+BaseAdapter
+
+↓
+
+QwenAdapter
+
+↓
+
+DeepSeekAdapter
+
+↓
+
+LlamaAdapter
+
+The rest of the project must never directly call
+AutoModelForCausalLM.from_pretrained().
+
+All interaction with models must happen through adapters.
+
+Planned adapters:
+
+- base.py
+- qwen.py
+- deepseek.py
+- llama.py
+
+Project Pipeline (LOCKED)
+-------------------------
+
+Question
+
+↓
+
+Generate reasoning
+
+↓
+
+Store reasoning
+
+↓
+
+Extract hidden states
+
+↓
+
+Extract logits
+
+↓
+
+Track answer evolution
+
+↓
+
+Detect positive / negative flips
+
+↓
+
+Build prefix dataset
+
+↓
+
+Train hazard predictor
+
+↓
+
+Stopping controller
+
+↓
+
+Evaluation
+
+Development Model Order
+-----------------------
+
+Build and validate the infrastructure in this order:
+
+1. Qwen2.5-1.5B-Instruct
+2. Qwen2.5-3B-Instruct
+3. Qwen3-8B Thinking
+4. DeepSeek-R1-Distill-Qwen-7B
+5. Llama-3.1-8B-Instruct
+
+Reason:
+
+The research contribution is model-agnostic.
+The infrastructure should be validated on stable models before scaling.
+
+DeepSeek Investigation
+----------------------
+
+Attempting to load DeepSeek-R1-Distill-Qwen-7B caused Windows access
+violations during checkpoint loading.
+
+Findings:
+
+- Environment is healthy.
+- PyTorch is working.
+- Transformers is working.
+- safetensors is working.
+- Qwen2.5-1.5B loads successfully on CPU.
+- Therefore the current blocker is specific to loading the DeepSeek
+  checkpoint on this Windows setup, not the overall environment.
+
+Do not spend more time debugging DeepSeek until the pipeline is complete.
+
+Coding Rules (LOCKED)
+---------------------
+
+- Never use transformers.pipeline().
+- Never duplicate model-loading code.
+- Never hard-code paths.
+- Keep outputs, datasets and HF cache outside the repository.
+- Every experiment should be reproducible.
+- Every configurable value belongs in configs/.
+- Prefer modular reusable code over one-off scripts.
+
+Immediate Next Tasks (COMPLETED)
+--------------------
+
+1. Implement BaseAdapter. [COMPLETED]
+2. Implement QwenAdapter. [COMPLETED]
+3. Load Qwen2.5-1.5B. [COMPLETED]
+4. Generate one reasoning trace. [COMPLETED]
+5. Save reasoning trace. [COMPLETED]
+6. Extract hidden states. [COMPLETED]
+7. Extract logits. [COMPLETED]
+8. Build reusable infrastructure before adding larger models. [COMPLETED]
+
+Immediate Next Tasks (NEW PHASE)
+--------------------------------
+
+1. Update project configuration to support the next model in sequence: Qwen2.5-3B-Instruct.
+2. Implement a unified trace loading utility in `src/utils.py` or `src/generation.py` to inspect saved `.pt` files.
+3. Write `scripts/03_extract_hidden_states.py` and `scripts/04_extract_logits.py` to modularize extraction from saved traces.
+4. Plan Phase 2/3: Start writing answer evolution tracking and flip detection algorithms in `src/metrics.py`.
+
+This architecture and workflow should be treated as the current source of
+truth unless a strong research reason requires changing it.
+
