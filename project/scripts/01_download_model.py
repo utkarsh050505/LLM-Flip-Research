@@ -1,44 +1,92 @@
-# scripts/01_download_model.py
+"""
+Script 01 — Download Model
+
+Downloads and caches the active model from Hugging Face.
+No GPU required — runs on CPU for download only.
+
+Usage:
+    conda activate llmresearch
+    python scripts/01_download_model.py
+"""
+
 import sys
 import os
 
-# Append the project root to sys.path to allow imports from src/ and configs/
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Ensure project root is on sys.path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from configs.model_config import MODEL_NAME, HF_CACHE_DIR
-from src.utils import setup_logging
-# pyrefly: ignore [missing-import]
+import logging
+from pathlib import Path
+
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-def main():
-    logger = setup_logging()
-    logger.info(f"Starting download of model: {MODEL_NAME}")
-    logger.info(f"Target HF cache directory: {HF_CACHE_DIR}")
+from configs.model_config import MODEL_NAME, HF_CACHE_DIR, ACTIVE_MODEL_KEY
+from src.utils.logger import setup_logging
 
-    os.makedirs(HF_CACHE_DIR, exist_ok=True)
 
-    # 1. Download and cache tokenizer
-    logger.info("Downloading tokenizer...")
-    tokenizer = AutoTokenizer.from_pretrained(
-        MODEL_NAME,
-        cache_dir=HF_CACHE_DIR,
-        trust_remote_code=True
-    )
-    logger.info("Tokenizer downloaded and cached successfully.")
+def main() -> None:
+    """Download and cache the active model and tokenizer."""
+    logger = setup_logging(level=logging.INFO)
 
-    # 2. Download and cache model
-    logger.info("Downloading model checkpoint files (this may take a few minutes)...")
-    # Load model weight parameters (without actually loading onto GPU, keeping on CPU or just download cache)
-    # We do a fast load on CPU or just map metadata. Since target is cache prep, we can just download it.
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME,
-        cache_dir=HF_CACHE_DIR,
-        trust_remote_code=True,
-        low_cpu_mem_usage=True,
-        device_map=None  # Load to CPU to keep it light
-    )
-    logger.info("Model downloaded and cached successfully.")
-    logger.info("Download completed successfully!")
+    logger.info("=" * 60)
+    logger.info("Model Download Script")
+    logger.info("=" * 60)
+    logger.info("Active model key : %s", ACTIVE_MODEL_KEY)
+    logger.info("HuggingFace ID   : %s", MODEL_NAME)
+    logger.info("Cache directory  : %s", HF_CACHE_DIR)
+
+    cache_path = Path(HF_CACHE_DIR)
+    cache_path.mkdir(parents=True, exist_ok=True)
+
+    # ---- Download tokenizer ----
+    logger.info("Downloading tokenizer ...")
+    try:
+        tokenizer = AutoTokenizer.from_pretrained(
+            MODEL_NAME,
+            cache_dir=HF_CACHE_DIR,
+            trust_remote_code=True,
+        )
+        logger.info(
+            "Tokenizer ready. Vocab size: %d",
+            tokenizer.vocab_size,
+        )
+    except Exception as e:
+        logger.error("Failed to download tokenizer: %s", e)
+        raise
+
+    # ---- Download model weights ----
+    logger.info("Downloading model weights (this may take several minutes) ...")
+    try:
+        model = AutoModelForCausalLM.from_pretrained(
+            MODEL_NAME,
+            cache_dir=HF_CACHE_DIR,
+            trust_remote_code=True,
+            low_cpu_mem_usage=True,
+            device_map=None,  # CPU only — just downloading
+        )
+        param_count = sum(p.numel() for p in model.parameters())
+        logger.info(
+            "Model downloaded. Parameters: %.2fM",
+            param_count / 1e6,
+        )
+    except Exception as e:
+        logger.error("Failed to download model: %s", e)
+        raise
+
+    # ---- Verify cache ----
+    cache_size_mb = sum(
+        f.stat().st_size for f in cache_path.rglob("*") if f.is_file()
+    ) / (1024 ** 2)
+    logger.info("Total cache size: %.1f MB", cache_size_mb)
+
+    logger.info("=" * 60)
+    logger.info("Download complete!")
+    logger.info("=" * 60)
+
+    # Free memory
+    del model
+    del tokenizer
+
 
 if __name__ == "__main__":
     main()
