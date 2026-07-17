@@ -17,6 +17,10 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 from src.reasoning.reasoning_state import ReasoningState
+from src.features.state_vector import CheckpointStateVector
+from src.features.reasoning_phase import ReasoningPhase
+from src.features.reasoning_event import ReasoningEvent
+from src.features.trajectory import ReasoningTrajectory
 
 
 # ---------------------------------------------------------
@@ -123,7 +127,7 @@ class GenerationData:
 
 
 # ---------------------------------------------------------
-# Checkpoints (Phase 2.5)
+# Checkpoints (Phase 2.5 / 3)
 # ---------------------------------------------------------
 
 @dataclass
@@ -138,7 +142,7 @@ class ReasoningCheckpoint:
     start_step: int
     end_step: int
     window_text: str
-    
+
     reasoning_state: ReasoningState
 
     entropy_mean: float
@@ -147,6 +151,11 @@ class ReasoningCheckpoint:
     confidence_mean: float
     token_count: int
     timestamp: float
+
+    # Phase 3: latent state representation
+    state_vector: Optional[CheckpointStateVector] = None
+    reasoning_phase: str = ReasoningPhase.UNKNOWN
+    events: List[ReasoningEvent] = field(default_factory=list)
 
     event_flags: Dict[str, bool] = field(default_factory=dict)
     feature_placeholders: FeaturePlaceholders = field(default_factory=FeaturePlaceholders)
@@ -218,6 +227,9 @@ class ReasoningTrace:
     events: TraceEvents = field(default_factory=TraceEvents)
 
     outcome: TraceOutcome = field(default_factory=TraceOutcome)
+
+    # Phase 3: trajectory-level latent representation
+    trajectory: Optional[ReasoningTrajectory] = None
 
     # -----------------------------------------------------
     # Step-Level Access (Phase 2)

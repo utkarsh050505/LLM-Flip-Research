@@ -22,6 +22,10 @@ from pathlib import Path
 from typing import Union
 
 from src.reasoning.reasoning_state import ReasoningState
+from src.features.state_vector import CheckpointStateVector
+from src.features.trajectory import ReasoningTrajectory
+from src.features.reasoning_phase import ReasoningPhase
+from src.features.reasoning_event import ReasoningEvent
 from src.trace.reasoning_trace import (
     ReasoningTrace,
     TraceMetadata,
@@ -196,13 +200,34 @@ def load_trace(path: Union[str, Path]) -> ReasoningTrace:
 
     checkpoints = []
     for cp in data.get("checkpoints", []):
+        cp = dict(cp)  # shallow copy to avoid mutating the loaded data
+
         fp_data = cp.pop("feature_placeholders", {})
         fp = FeaturePlaceholders(**fp_data)
-        
+
         rs_data = cp.pop("reasoning_state", {})
         rs = ReasoningState(**rs_data) if rs_data else None
-        
-        checkpoints.append(ReasoningCheckpoint(feature_placeholders=fp, reasoning_state=rs, **cp))
+
+        sv_data = cp.pop("state_vector", None)
+        sv = None
+        if sv_data and isinstance(sv_data, dict):
+            sv = CheckpointStateVector(**{
+                k: v for k, v in sv_data.items()
+                if k in CheckpointStateVector.__dataclass_fields__
+            })
+
+        events_data = cp.pop("events", [])
+        events = [
+            ReasoningEvent(**e) for e in events_data
+        ]
+
+        checkpoints.append(ReasoningCheckpoint(
+            feature_placeholders=fp,
+            reasoning_state=rs,
+            state_vector=sv,
+            events=events,
+            **cp,
+        ))
 
     latent = LatentData(**{
         k: v for k, v in data.get("latent", {}).items()
@@ -219,6 +244,24 @@ def load_trace(path: Union[str, Path]) -> ReasoningTrace:
         if k in TraceOutcome.__dataclass_fields__
     })
 
+    # Reconstruct trajectory (Phase 3)
+    traj_data = data.get("trajectory", None)
+    trajectory = None
+    if traj_data and isinstance(traj_data, dict):
+        traj_vectors_raw = traj_data.pop("checkpoint_vectors", [])
+        traj_vectors = []
+        for sv_data in traj_vectors_raw:
+            if isinstance(sv_data, dict):
+                traj_vectors.append(CheckpointStateVector(**{
+                    k: v for k, v in sv_data.items()
+                    if k in CheckpointStateVector.__dataclass_fields__
+                }))
+        trajectory = ReasoningTrajectory(
+            checkpoint_vectors=traj_vectors,
+            **{k: v for k, v in traj_data.items()
+               if k in ReasoningTrajectory.__dataclass_fields__},
+        )
+
     trace = ReasoningTrace(
         metadata=metadata,
         generation=generation,
@@ -226,6 +269,7 @@ def load_trace(path: Union[str, Path]) -> ReasoningTrace:
         latent=latent,
         events=events,
         outcome=outcome,
+        trajectory=trajectory,
     )
 
     logger.info("Trace loaded from %s (%d steps)", path, len(steps))

@@ -108,6 +108,21 @@ def main() -> None:
         logger.info("Throughput      : %.1f tok/s", trace.generation.timing.tokens_per_second)
         logger.info("-" * 60)
 
+        # Phase 3: Trajectory statistics
+        if trace.trajectory:
+            t = trace.trajectory
+            logger.info("Trajectory ID   : %s", t.trajectory_id)
+            logger.info("Trajectory len  : %d checkpoints", t.trajectory_length)
+            logger.info("Duration        : %.2f s", t.trajectory_duration)
+            logger.info("Avg entropy     : %.4f", t.avg_entropy)
+            logger.info("Max entropy     : %.4f", t.max_entropy)
+            logger.info("Entropy var     : %.6f", t.entropy_variance)
+            logger.info("Avg confidence  : %.4f", t.avg_confidence)
+            if t.velocity_profile:
+                logger.info("Velocity range  : [%.4f, %.4f]",
+                            min(t.velocity_profile), max(t.velocity_profile))
+            logger.info("-" * 60)
+
         # Entropy statistics
         entropies = [e for e in trace.entropies if e is not None]
         if entropies:
