@@ -1,23 +1,50 @@
 # configs/model_config.py
 import os
 
-# Registry of supported models and their Hugging Face paths
+# Registry of supported models and their Hugging Face paths, families, and quantization settings
 MODEL_REGISTRY = {
-    "qwen_1.5b": "Qwen/Qwen2.5-1.5B-Instruct",
-    "qwen_3b": "Qwen/Qwen2.5-3B-Instruct",
-    "deepseek_7b": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
-    "llama_8b": "meta-llama/Llama-3.1-8B-Instruct"
+    "deepseek_qwen_1.5b": {
+        "hf_path": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+        "family": "qwen",
+        "load_in_4bit": False
+    },
+    "qwen_math_1.5b": {
+        "hf_path": "Qwen/Qwen2.5-Math-1.5B-Instruct",
+        "family": "qwen",
+        "load_in_4bit": False
+    },
+    "metastone_s1_1.5b": {
+        "hf_path": "MetaStoneTec/MetaStone-S1-1.5B",
+        "family": "qwen",
+        "load_in_4bit": False
+    },
+    "t0_s1_1.5b": {
+        "hf_path": "alan-turing-institute/t0-s1-1.5B",
+        "family": "qwen",
+        "load_in_4bit": False
+    },
+    "deepseek_qwen_7b": {
+        "hf_path": "deepseek-ai/DeepSeek-R1-Distill-Qwen-7B",
+        "family": "qwen",
+        "load_in_4bit": True
+    },
+    "deepseek_llama_8b": {
+        "hf_path": "deepseek-ai/DeepSeek-R1-Distill-Llama-8B",
+        "family": "llama",
+        "load_in_4bit": True
+    }
 }
 
 # The active model key (change this to select a different model from the registry)
-ACTIVE_MODEL_KEY = "qwen_1.5b"
+ACTIVE_MODEL_KEY = "deepseek_qwen_1.5b"
 
-# Active Model HF Path
-MODEL_NAME = MODEL_REGISTRY[ACTIVE_MODEL_KEY]
+# Active Model config
+ACTIVE_MODEL_CONFIG = MODEL_REGISTRY[ACTIVE_MODEL_KEY]
+MODEL_NAME = ACTIVE_MODEL_CONFIG["hf_path"]
+LOAD_IN_4BIT = ACTIVE_MODEL_CONFIG["load_in_4bit"]
 
 # Hardware settings
 DEVICE = "cuda"  # Use 'cuda' or 'cpu'
-LOAD_IN_4BIT = True  # Enable bitsandbytes 4-bit loading (ignored on CPU)
 
 # Hugging Face local cache directory (Redirected to A: drive to save C: space)
 HF_CACHE_DIR = "A:\\LLMResearch\\hf_cache"

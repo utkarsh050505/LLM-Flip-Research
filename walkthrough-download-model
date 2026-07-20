@@ -1,0 +1,40 @@
+# Walkthrough: Unified Model Config & Download/Smoke-Test
+
+We updated the configuration and download script to support 5 model options, with automatic handling of 4-bit quantization on GPU for larger models (7B and 8B).
+
+## Changes Made
+
+### 1. Model Registry
+Updated [model_config.py](file:///a:/LLMResearch/project/configs/model_config.py) to register the following 5 models:
+- **`deepseek_qwen_1.5b`**: `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` (BF16, ~3.5GB VRAM)
+- **`qwen_math_1.5b`**: `Qwen/Qwen2.5-Math-1.5B-Instruct` (BF16, ~3.5GB VRAM)
+- **`metastone_s1_1.5b`**: `MetaStoneTec/MetaStone-S1-1.5B` (BF16, ~3.5GB VRAM)
+- **`t0_s1_1.5b`**: `alan-turing-institute/t0-s1-1.5B` (BF16, ~3.5GB VRAM)
+- **`deepseek_qwen_7b`**: `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` (4-bit, ~4GB VRAM)
+- **`deepseek_llama_8b`**: `deepseek-ai/DeepSeek-R1-Distill-Llama-8B` (4-bit, ~4.5GB VRAM)
+
+### 2. Unified Downloader and Smoke Test
+Updated [01_download_model.py](file:///a:/LLMResearch/project/01_download_model.py) to:
+- Load configuration from `model_config.py` (which includes cache dir settings `A:\LLMResearch\hf_cache` so that downloading does not hit the C: drive).
+- Check CUDA device health.
+- Download tokenizer and model weights to the cached directory.
+- Apply `BitsAndBytesConfig` NF4 4-bit quantization automatically on the GPU if the model registry specifies `load_in_4bit: True` (such as for the 7B and 8B models).
+- Perform a GPU-based reasoning generation smoke test using the prompt: `"Solve step by step and put your final answer in \boxed{}: What is 17 * 24 - 15?"`.
+- Report total peak GPU VRAM used.
+
+---
+
+## How to Run It
+
+### Step 1: Select Model
+In [configs/model_config.py](file:///a:/LLMResearch/project/configs/model_config.py#L38-L40), change the value of `ACTIVE_MODEL_KEY` to the desired model identifier from the `MODEL_REGISTRY`, for example:
+```python
+ACTIVE_MODEL_KEY = "deepseek_qwen_1.5b"
+```
+
+### Step 2: Execute Script
+Run the script to download, load, and test:
+```powershell
+conda activate llmresearch
+python project/01_download_model.py
+```
