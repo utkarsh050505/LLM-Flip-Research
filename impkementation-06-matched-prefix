@@ -1,0 +1,28 @@
+# Update Branching Snapshot and Smart Budget Forcing
+
+We are shifting from branching at a "verified correct answer" to branching at a "tentative answer snapshot", and introducing a mechanism to force the model to answer before it hits the token ceiling.
+
+## Proposed Changes
+
+### 1. Tentative Answer Snapshot (`06_matched_pair_metrics.py`)
+Currently, `fcs_criteria` searches for the exact ground truth answer. We will update it to trigger on **any tentative answer proposal**, regardless of whether it is correct.
+- We will update the `answer_appears` regex to match phrases like:
+  - `answer is 50`
+  - `solution = 42`
+  - `\boxed{30}`
+- **Regex Example**: `r"(?i)(?:answer|solution|it\'s|therefore)(?:\s+is|\s*=|:\s*)\s*[-+]?\d+|\\boxed\{[-+]?\d+"`
+- This ensures we branch *exactly* when the model first believes it has found an answer, allowing for divergence (both to a confirmed correct answer, or an overthought wrong answer).
+
+### 2. Smart Budget Forcing
+We will modify `BudgetForcingLogitsProcessor` to cleanly force an exit from the thinking phase when the model runs out of time:
+- **Phase 1 (tokens 0 to 4000)**: `</think>` and `eos_token` are completely banned (Score = `-inf`). Model is forced to keep thinking.
+- **Phase 2 (tokens 4000 to 4400)**: Restrictions are lifted. The model can naturally conclude its thoughts and output `</think>`.
+- **Phase 3 (tokens 4400+)**: If the model *still* hasn't concluded, we forcefully boost the `</think>` token to force it out of the thinking block so it can write its final `\boxed{}` answer before the 4500 limit. (Using a very high score bias like `1e4` to avoid softmax NaNs while ensuring it gets sampled).
+
+### 3. Metric Collection Adjustments
+We will verify that metric collection still functions properly across these phases and gracefully handles branches that yield a `PCC` vs `STABLE_CORRECT`.
+
+## User Review Required
+> [!IMPORTANT]
+> - Is the regex for the "tentative answer" broad enough? Do you want to include other phrases like `so x = 50`?
+> - For Phase 3 (force exit), abruptly forcing `</think>` in the middle of a sentence might cause minor grammatical glitches right before the answer block. This is standard for budget forcing, but let me know if you'd prefer a softer penalty approach.

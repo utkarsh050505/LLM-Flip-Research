@@ -39,7 +39,7 @@ FCS_SEARCH_CEILING = 16000
 BRANCH_CEILING = 16000
 N_BRANCHES = 6
 BRANCH_TEMPERATURE = 1.1
-TARGET_BUDGET = 4000
+TARGET_BUDGET = 2500
 BRANCH_CEILING = TARGET_BUDGET + 500  # Budget + room to output the answer
 MIN_TOKENS_BEFORE_FCS = 15
 CHECK_EVERY = 4
@@ -55,8 +55,9 @@ def get_layer_indices(model):
     n = model.config.num_hidden_layers
     return {"early": 1, "mid": n // 2, "late": n}
 
-def answer_appears(text: str, answer: str) -> bool:
-    pattern = rf"(?:=\s*|\\boxed\{{|answer\s+is\s+){re.escape(answer)}\b"
+def answer_appears(text: str) -> bool:
+    # A smart regex to catch tentative answers without grabbing intermediate calculations
+    pattern = r"(?i)(?:final\s+answer\s+is|the\s+answer\s+is|so\s+the\s+answer\s+is|value\s+of\s+\\log_z\s+w\s*is|\\log_z\s*w\s*=)\s*[-+]?\d+|\\boxed\{[-+]?\d+"
     return re.search(pattern, text) is not None
 
 class StopOnPattern(StoppingCriteria):
@@ -75,7 +76,7 @@ class StopOnPattern(StoppingCriteria):
         text = self.tokenizer.decode(
             input_ids[0, self.prompt_len:], skip_special_tokens=True
         )
-        if self.check_fn(text):
+        if self.check_fn(text, input_ids[0, self.prompt_len:]):
             self.stopped_at = input_ids.shape[1]
             return True
         return False
@@ -99,6 +100,11 @@ class BudgetForcingLogitsProcessor(LogitsProcessor):
         if generated_len < self.target_budget:
             for t in self.banned_tokens:
                 scores[:, t] = -float("inf")
+        elif generated_len >= self.target_budget + 400:
+            # Force exit from think block before we hit ceiling, if not already exited
+            if 151649 not in input_ids[0, self.prompt_length:]:
+                scores[:] = -float("inf")
+                scores[:, 151649] = 0.0
         return scores
 
 def main():
@@ -119,7 +125,7 @@ def main():
 
     fcs_criteria = StopOnPattern(
         tokenizer, prompt_len,
-        check_fn=lambda text: answer_appears(text, GROUND_TRUTH_ANSWER),
+        check_fn=lambda text, ids: answer_appears(text),
         check_every=CHECK_EVERY,
         min_tokens=MIN_TOKENS_BEFORE_FCS,
     )
@@ -161,7 +167,7 @@ def main():
         branch_cache = copy.deepcopy(base_cache)
         branch_criteria = StopOnPattern(
             tokenizer, prefix_len,
-            check_fn=lambda text: re.search(r"\\boxed\{[^}]*\}", text) is not None,
+            check_fn=lambda text, ids: re.search(r"\\boxed\{[^}]*\}", text) is not None and 151649 in ids,
             check_every=CHECK_EVERY,
         )
         budget_processor = BudgetForcingLogitsProcessor(
