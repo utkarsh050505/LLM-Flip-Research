@@ -15,15 +15,30 @@ import torch
 # pyrefly: ignore [missing-import]
 from transformers import AutoModelForCausalLM, AutoTokenizer
  
-MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+MODEL_NAME = "deepseek-ai/DeepSeek-R1-Distill-llama-8B"
 MAX_NEW_TOKENS = 20  # small on purpose — we're inspecting, not generating
  
  
 def main():
     tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_NAME, torch_dtype=torch.bfloat16, device_map="cuda"
-    )
+    print(f"Loading {MODEL_NAME}...")
+    print("NOTE: 8B models require ~16GB of free RAM/VRAM. If the script crashes silently here, your system ran out of memory.")
+    try:
+        # pyrefly: ignore [missing-import]
+        from transformers import BitsAndBytesConfig
+        bnb_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=torch.bfloat16
+        )
+        model = AutoModelForCausalLM.from_pretrained(
+            MODEL_NAME, quantization_config=bnb_config, device_map="auto"
+        )
+        print("Successfully loaded in 4-bit mode.")
+    except ImportError:
+        print("bitsandbytes not found, falling back to standard bfloat16 loading...")
+        model = AutoModelForCausalLM.from_pretrained(
+            MODEL_NAME, torch_dtype=torch.bfloat16, device_map="auto"
+        )
     model.eval()
  
     prompt = "Solve step by step: What is 17 * 24 - 15?"

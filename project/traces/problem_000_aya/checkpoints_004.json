@@ -1,0 +1,40 @@
+{
+    "problem_file": "Every morning Aya goes for a 9-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of s kilometers per hour, the walk takes her 4 hours, including t minutes spent in the coffee shop. When she walks s+2 kilometers per hour, the walk takes her 2 hours and 24 minutes, including t minutes spent in the coffee shop. Suppose Aya walks at s+1/2 kilometers per hour. Find the number of minutes the walk takes her, including the t minutes spent in the coffee shop.",
+    "trace_file": "trace_004.pt",
+    "ground_truth": "204",
+    "natural_think_close_pos": 2138,
+    "checkpoints": [
+        {
+            "fraction": 0.25,
+            "token_position": 638,
+            "probe_answer": "10",
+            "correct": false
+        },
+        {
+            "fraction": 0.5,
+            "token_position": 1138,
+            "probe_answer": "100",
+            "correct": false
+        },
+        {
+            "fraction": 0.7,
+            "token_position": 1538,
+            "probe_answer": "100",
+            "correct": false
+        },
+        {
+            "fraction": 0.85,
+            "token_position": 1838,
+            "probe_answer": "2.5",
+            "correct": false
+        },
+        {
+            "fraction": 0.95,
+            "token_position": 2038,
+            "probe_answer": "2.5",
+            "correct": false
+        }
+    ],
+    "final_answer": "132",
+    "final_correct": false
+}

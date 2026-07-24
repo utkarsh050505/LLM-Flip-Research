@@ -1,0 +1,124 @@
+[
+    {
+        "problem": "Every morning Aya goes for a 9-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of s kilometers per hour, the walk takes her 4 hours, including t minutes spent in the coffee shop. When she walks s+2 kilometers per hour, the walk takes her 2 hours and 24 minutes, including t minutes spent in the coffee shop. Suppose Aya walks at s+1/2 kilometers per hour. Find the number of minutes the walk takes her, including the t minutes spent in the coffee shop.",
+        "trace": "trace_000.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 0,
+        "transitions": [],
+        "final_correct": false
+    },
+    {
+        "problem": "Every morning Aya goes for a 9-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of s kilometers per hour, the walk takes her 4 hours, including t minutes spent in the coffee shop. When she walks s+2 kilometers per hour, the walk takes her 2 hours and 24 minutes, including t minutes spent in the coffee shop. Suppose Aya walks at s+1/2 kilometers per hour. Find the number of minutes the walk takes her, including the t minutes spent in the coffee shop.",
+        "trace": "trace_001.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 2038"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Every morning Aya goes for a 9-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of s kilometers per hour, the walk takes her 4 hours, including t minutes spent in the coffee shop. When she walks s+2 kilometers per hour, the walk takes her 2 hours and 24 minutes, including t minutes spent in the coffee shop. Suppose Aya walks at s+1/2 kilometers per hour. Find the number of minutes the walk takes her, including the t minutes spent in the coffee shop.",
+        "trace": "trace_002.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 1838"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Every morning Aya goes for a 9-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of s kilometers per hour, the walk takes her 4 hours, including t minutes spent in the coffee shop. When she walks s+2 kilometers per hour, the walk takes her 2 hours and 24 minutes, including t minutes spent in the coffee shop. Suppose Aya walks at s+1/2 kilometers per hour. Find the number of minutes the walk takes her, including the t minutes spent in the coffee shop.",
+        "trace": "trace_003.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 1838"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Every morning Aya goes for a 9-kilometer-long walk and stops at a coffee shop afterwards. When she walks at a constant speed of s kilometers per hour, the walk takes her 4 hours, including t minutes spent in the coffee shop. When she walks s+2 kilometers per hour, the walk takes her 2 hours and 24 minutes, including t minutes spent in the coffee shop. Suppose Aya walks at s+1/2 kilometers per hour. Find the number of minutes the walk takes her, including the t minutes spent in the coffee shop.",
+        "trace": "trace_004.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 0,
+        "transitions": [],
+        "final_correct": false
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_000.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 1196"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_001.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 1070"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_002.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 1753"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_003.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 863"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_004.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 0,
+        "transitions": [],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_005.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 0,
+        "transitions": [],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_006.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 1070"
+        ],
+        "final_correct": true
+    },
+    {
+        "problem": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+        "trace": "trace_007.pt",
+        "c2i_flips": 0,
+        "i2c_flips": 1,
+        "transitions": [
+            "I2C at 991"
+        ],
+        "final_correct": true
+    }
+]

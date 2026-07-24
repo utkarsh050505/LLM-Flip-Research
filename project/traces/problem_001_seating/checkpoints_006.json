@@ -1,0 +1,40 @@
+{
+    "problem_file": "Solve this problem without using code or external tools.\nDo not stop after obtaining the first plausible answer. State each candidate\nanswer explicitly during your reasoning. After solving it, perform at least\nthree independent verification passes.\nIn every verification pass:\n1. Challenge your previous assumptions.\n2. Search for overlooked edge cases.\n3. Try an alternative derivation.\n4. Revise the answer if you find any possible inconsistency.\nUse the full available reasoning budget. End with exactly:\nFINAL ANSWER: <answer>\n\n10 people are seated around a circular table. Rotations of a seating are\nconsidered identical; reflections are considered different. Two specific\npeople, A and B, must never sit adjacent to each other. How many distinct\nvalid seating arrangements are there?\nGive a single integer answer.",
+    "trace_file": "trace_006.pt",
+    "ground_truth": "282240",
+    "natural_think_close_pos": 1960,
+    "checkpoints": [
+        {
+            "fraction": 0.25,
+            "token_position": 625,
+            "probe_answer": "265440",
+            "correct": false
+        },
+        {
+            "fraction": 0.5,
+            "token_position": 1070,
+            "probe_answer": "282240",
+            "correct": true
+        },
+        {
+            "fraction": 0.7,
+            "token_position": 1426,
+            "probe_answer": "282240",
+            "correct": true
+        },
+        {
+            "fraction": 0.85,
+            "token_position": 1693,
+            "probe_answer": "282240",
+            "correct": true
+        },
+        {
+            "fraction": 0.95,
+            "token_position": 1871,
+            "probe_answer": "282240",
+            "correct": true
+        }
+    ],
+    "final_answer": "282240",
+    "final_correct": true
+}

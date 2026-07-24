@@ -1,0 +1,7 @@
+=== Flip Detection Summary ===
+
+Total traces analyzed: 13
+Total C2I flips across all traces: 0
+Total I2C flips across all traces: 9
+
+Problems with most C2I traces (traces exhibiting at least one C2I flip):
