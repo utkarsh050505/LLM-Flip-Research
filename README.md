@@ -249,7 +249,19 @@ python project/scripts/05_branch_and_label.py
 
 This is computationally demanding: it may generate up to 12,000 tokens to locate the FCS proxy and up to 16,000 tokens for each of ten branch continuations. It prints, rather than writes, branch outcomes.
 
-### 6. Diagnose cache calling conventions
+### 6. Run the capability-aware PCC branch experiment
+
+```bash
+python project/scripts/11_pcc_branch_experiment.py \
+  --config project/configs/pcc_experiment.example.json \
+  --problem-file project/problems/problem_000_aya.json
+```
+
+This newer path separates model access from PCC logic. The backend declares whether it supports logits, hidden states, manual token stepping, and KV-cache cloning before the experiment runs. Full same-prefix PCC branching currently requires the Transformers backend because text-only local servers usually do not expose the internals needed for branch-matched PCC metrics.
+
+Run metadata is appended to `project/results/pcc_branch_runs.jsonl`. Per-branch transcripts and metric rows are saved under a timestamped `project/results/pcc_branch_run_*` directory.
+
+### 7. Diagnose cache calling conventions
 
 ```bash
 python project/scripts/debug_cache.py
@@ -267,13 +279,16 @@ This repository does not expose an application API. There are no HTTP routes, re
 - **Tensor-shape inspection precedes trace analysis.** The code explicitly calls out that the first hidden-state entry represents prompt prefill whereas later entries correspond to cached single-token decoding. This guards against using the wrong sequence position.
 - **Layer sampling limits trace output.** The trace experiment records an early, middle, and late layer instead of exporting full hidden-state tensors for every layer to CSV.
 - **Same-prefix branching is the intended control.** The branching script reconstructs a prefix cache and deep-copies it so continuations can share identical prior context while sampling diverges. The code comments identify this as the core PCC mechanism experiment.
+- **Backend capabilities are explicit in the newer PCC runner.** `project/backends` defines the capabilities required for full PCC branch experiments. The first concrete implementation is `TransformersBackend`; non-Transformers local LLM integrations should be added only with honest capability flags.
+- **PCC branch results are persisted.** `11_pcc_branch_experiment.py` writes structured run metadata, transcripts, and metric rows instead of relying on console output.
 - **Answer verification is deliberately provisional.** FCS detection and outcome labeling use regex-based textual heuristics and a hard-coded ground-truth answer. They are suitable for an exploratory script, not a general mathematical verifier.
 
 ### Important limitations
 
 - The project is not yet a production service or a complete PCC prediction system.
-- The current scripts use fixed example prompts and hard-coded constants rather than a benchmark runner or configuration-driven experiment framework.
-- `05_branch_and_label.py` does not attach the metric suite to each branch, persist branch results, train a model, or evaluate a stopping policy.
+- The older scripts use fixed example prompts and hard-coded constants rather than a benchmark runner or configuration-driven experiment framework.
+- `05_branch_and_label.py` does not attach the metric suite to each branch, persist branch results, train a model, or evaluate a stopping policy. Use `11_pcc_branch_experiment.py` for persisted branch artifacts.
+- Full PCC branching is not available through text-only local LLM APIs unless that runtime exposes logits, hidden states, manual stepping, and cloneable KV-cache state.
 - The cache-branching behavior should be validated with `debug_cache.py` for the installed model and Transformers version before treating branch outcomes as research data.
 - The repository contains one sample CSV trace; it does not establish empirical conclusions about PCC.
 
