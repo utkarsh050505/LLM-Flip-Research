@@ -261,6 +261,8 @@ This newer path separates model access from PCC logic. The backend declares whet
 
 Run metadata is appended to `project/results/pcc_branch_runs.jsonl`. Per-branch transcripts and metric rows are saved under a timestamped `project/results/pcc_branch_run_*` directory.
 
+For a step-by-step walkthrough, expected console output, output file schema, and known failure modes, see [`docs/pcc_branch_runner_walkthrough.md`](docs/pcc_branch_runner_walkthrough.md).
+
 ### 7. Diagnose cache calling conventions
 
 ```bash
