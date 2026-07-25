@@ -14,7 +14,7 @@
   "budget_multiplier": 3,
   "min_target_budget": 400,
   "max_target_budget": 4000,
-  "extra_branch_tokens": 1000,
+  "extra_branch_tokens": 3000,
   "check_every": 4,
   "conclude_probability_threshold": 0.05,
   "max_repeated_boxed": 3,
