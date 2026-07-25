@@ -44,14 +44,12 @@ def extract_final_answer(text: str) -> str | None:
     if boxed is not None:
         return boxed
 
-    final_patterns = [
-        r"(?im)^\s*FINAL\s+ANSWER\s*:\s*(.+?)\s*$",
-        r"(?i)(?:final\s+answer\s+is|the\s+answer\s+is)\s+([^\n\.]+)",
-    ]
-    for pattern in final_patterns:
-        matches = re.findall(pattern, text)
-        if matches:
-            return matches[-1].strip()
+    # Branch outcomes need a declared final answer. Generic phrases such as
+    # "the answer is ..." often appear inside unfinished reasoning and should
+    # not turn an inconclusive branch into PCC or STABLE_CORRECT.
+    matches = re.findall(r"(?im)^\s*FINAL\s+ANSWER\s*:\s*(.+?)\s*$", text)
+    if matches:
+        return matches[-1].strip()
     return None
 
 

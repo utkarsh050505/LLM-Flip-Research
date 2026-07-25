@@ -75,6 +75,8 @@ This module handles provisional answer parsing and normalization:
 - supports `FINAL ANSWER: ...`
 - strips common LaTeX formatting such as `\text{...}`
 - normalizes simple fractions such as `\frac{a}{b}` to `a/b`
+- deliberately ignores generic reasoning phrases such as `the answer is ...`
+  when assigning branch outcome labels
 
 This is still a heuristic verifier. It is suitable for exploratory PCC runs,
 not final mathematical evaluation.
@@ -323,9 +325,34 @@ already appeared, but the branch's final extracted answer did not match the
 ground truth.
 
 `NO_FINAL_ANSWER` means no final answer could be extracted from the branch.
+For branch labels, extraction requires a declared final answer: either a closed
+`\boxed{...}` expression or an explicit `FINAL ANSWER:` line. Generic reasoning
+text such as `the answer is ...` is not enough because it often appears before
+the branch has actually concluded.
 
 `DEGENERATE` means the branch entered a repeated-answer pattern under budget
 forcing and was stopped as an artifact rather than treated as useful PCC data.
+
+## Label Correction Note
+
+Earlier output artifacts used a looser fallback that treated generic reasoning
+phrases such as `the answer is 35280 vs 30240, which is conflicting` as final
+answers. That created false `PCC` labels when a branch had not actually
+concluded.
+
+The stricter rule is:
+
+- use `STABLE_CORRECT` only when a declared final answer exists and matches the
+  ground truth;
+- use `PCC` only when a declared final answer exists and does not match the
+  ground truth;
+- use `NO_FINAL_ANSWER` when the branch contains no closed `\boxed{...}` and no
+  explicit `FINAL ANSWER:` line, even if unfinished reasoning contains phrases
+  like `the answer is ...`.
+
+After applying this rule to `pcc_branch_run_20260725T072315064627Z`, the branch
+that was previously labeled `PCC` is correctly categorized as
+`NO_FINAL_ANSWER`.
 
 ## Capability Rules
 
@@ -445,4 +472,3 @@ Use this sequence for a real PCC run:
 6. Read `project/results/pcc_branch_runs.jsonl`.
 7. Inspect each `branch_*_transcript.txt` before trusting `PCC` labels.
 8. Use `branch_*_metrics.jsonl` for token-level feature analysis.
-
