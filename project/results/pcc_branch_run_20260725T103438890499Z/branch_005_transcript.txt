@@ -1,0 +1,466 @@
+<｜begin▁of▁sentence｜><｜User｜>Solve this problem without using code or external tools.
+Do not stop after obtaining the first plausible answer. State each candidate
+answer explicitly during your reasoning. After solving it, perform at least
+three independent verification passes.
+In every verification pass:
+1. Challenge your previous assumptions.
+2. Search for overlooked edge cases.
+3. Try an alternative derivation.
+4. Revise the answer if you find any possible inconsistency.
+Use the full available reasoning budget. End with exactly:
+FINAL ANSWER: <answer>
+
+10 people are seated around a circular table. Rotations of a seating are
+considered identical; reflections are considered different. Two specific
+people, A and B, must never sit adjacent to each other. How many distinct
+valid seating arrangements are there?
+Give a single integer answer.<｜Assistant｜><think>
+Alright, let me try to figure this problem out. So, we have 10 people sitting around a circular table. Rotations are considered identical, but reflections are different. That means if you rotate the entire table, it doesn't count as a new arrangement, but flipping the table would make it a different one. 
+
+The key constraint here is that two specific people, A and B, must never sit next to each other. I need to find the number of distinct valid seating arrangements under these conditions.
+
+First, let me recall how circular permutations work. For n people around a circular table, the number of distinct arrangements is (n-1)! because rotations are considered the same. But here, since reflections are considered different, I don't have to divide by 2, so it's just (n-1)!.
+
+In this case, n is 10, so the total number of seating arrangements without any restrictions is (10-1)! = 9! = 362880. But we have a restriction: A and B cannot sit next to each other. So, I need to subtract the number of arrangements where A and B are sitting together from the total.
+
+Wait, but actually, since the problem says rotations are identical but reflections are different, maybe I should model this as a circular arrangement with linear restrictions.
+
+Another approach is to fix one person's position to eliminate rotational symmetry. Let's say we fix person A's position at a specific seat to avoid counting rotations as different arrangements. Then, we need to arrange the remaining 9 people around the table, with the condition that B is not adjacent to A.
+
+So, fixing A's position, now we have 9 seats left. The total number of ways to arrange the remaining 9 people is 9! = 362880. But we need to subtract the number of arrangements where B is sitting next to A.
+
+Since A is fixed, there are two seats adjacent to A (on either side). So, B cannot be in either of these two seats. Therefore, in these restricted arrangements, B has 7 possible seats (since 9 total minus 2 forbidden). So, the number of arrangements where B is next to A is 2 * 7!.
+
+Calculating that: 2 * 7! = 2 * 5040 = 10080.
+
+Therefore, the number of valid arrangements is total arrangements minus arrangements where B is next to A: 9! - 2*7! = 362880 - 10080 = 352800.
+
+But hold on, let me make sure. Is this the correct approach? Because sometimes in circular arrangements, fixing a position can affect the symmetry, but in this case, since we have reflections considered different, maybe fixing A's position is sufficient without overcounting.
+
+Wait, another thought: in circular permutations, fixing one person's position is a standard method to account for rotational symmetry, and reflections are considered different, so we don't need to adjust for that. So, yes, fixing A's position is valid.
+
+So, the total number without any restrictions is 9! = 362880.
+
+Number of arrangements where B is next to A: 2 * 7! = 10080.
+
+Therefore, valid arrangements: 362880 - 10080 = 352800.
+
+But to be thorough, let me think again. Is there another way to calculate this? Maybe using inclusion-exclusion.
+
+Alternatively, we can consider all possible arrangements and subtract those where A and B are adjacent.
+
+Total arrangements: (10-1)! = 9! = 362880.
+
+Number of arrangements where A and B are adjacent: treat A and B as a single entity. So, we have 9 entities to arrange (since A and B are treated as one), and since it's a circular table, the number of arrangements is (9-1)! = 8! = 40320. However, since A and B can be arranged in 2 ways within their single entity, the total number is 2*8! = 2*40320 = 80640.
+
+Therefore, the number of valid arrangements where A and B are not adjacent is total arrangements minus adjacent arrangements: 362880 - 80640 = 282240.
+
+Wait a second, now I'm getting a different result. 282240 vs 352800.
+
+Hmm, that's a contradiction. I must have made a mistake somewhere.
+
+Let me check the reasoning. In one approach, I fixed A and considered circular arrangements where B is not adjacent. I calculated it as 2*7!.
+
+In the second method, I used inclusion-exclusion and calculated total arrangements minus arrangements where A and B are adjacent, which gave a different result.
+
+Which one is correct?
+
+Alternatively, maybe treating the problem as a circular permutation with two people opposite each other, but not adjacent.
+
+Wait, hang on. Let me recall: in linear arrangements, the number of ways where A and B are not adjacent is total minus the number of arrangements where they are adjacent. But in circular arrangements, it's similar.
+
+But wait, depending on how we fix the positions, the calculation can differ.
+
+Let me go back. When I fixed A's position in a circular table, then there are 9 seats left. The number of ways where B is adjacent to A is 2 (one on each side) multiplied by arranging the remaining 7 people, which is 7!.
+
+Wait, so the number of arrangements where B is adjacent to A is 2 * 7!.
+
+But if we don't fix A, but instead fix A, then the count becomes 7. Wait, no, fix A, then the two adjacent seats to A are specific, say seat 10 and seat 2 if A is at seat 1.
+
+So, B cannot be at seat 10 or seat 2, correct.
+
+So, within the fixed A's position, the two seats adjacent are forbidden, leaving 7 seats for B, each of which then fixes the rest.
+
+So, yes, 2 * 7! arrangements are invalid, which gives us 9! - 2*7! as valid.
+
+Alternatively, when treating A and B as a single entity, the total number is 8!, and since they can be in two orders, that's 2*8!.
+
+But 8! is 40320, 2*8! is 80640. So, total valid without considering the circular symmetries as arrangements.
+
+But we need to make sure about the circular permutations.
+
+Wait, is circular permutations already factored into these counts?
+
+Yes, because when we fix one person, the total remaining is (n-1)!.
+
+So, another way: if it's linear, it would be different.
+
+Wait, no, circular is (n-1)!.
+
+So, 9! would be the number of circular arrangements. But since we fixed one person, 2*7! is the number with the linear restriction.
+
+Wait, perhaps the initial method was correct, giving 352800, and the second approach is flawed because it assumes that A and B cannot be next to each other globally, but maybe that's not the case.
+
+Wait, actually, in the second approach, when computing by treating A and B as a single entity, it's possible that within this single entity, the remaining people are arranged linearly, not circularly.
+
+But in reality, it's a circular table, so when considering the arrangement with A and B together, we need to ensure that the ended up circular arrangement is closed, meaning that arrangements where the two ends are adjacent would not count as adjacent.
+
+So, perhaps we need to compute the number of circular arrangements where A and B are treated as a single person, so the problem reduces to arranging 8 entities around a table. But in this case, the entity is circular, so the number of arrangements is (8-1)! = 7!.
+
+But within the entity, A and B can be arranged in two ways: AB or BA. So, number of arrangements is 2*7!.
+
+Therefore, the number of circular arrangements where A and B are not adjacent is total circular arrangements minus the number where they're adjacent, which is 9! - 2*7! = 352800.
+
+Therefore, perhaps my second method calculation is correct?
+
+But in that first approach, I didn't fix A, just considered that it's already a circular permutation. So, perhaps, this shows that treating A and B as a single entity is another way which aligns with fixing A, hence yielding the same result.
+
+Wait, that seems contradictory because in the second method, when not fixing A, you get a different number of arrangements, but perhaps that's incorrect.
+
+Wait, perhaps in circular permutation treating A and B as a pair, the counts are actually similar.
+
+Wait, no, because in the first approach, when I fix A, I get 9! - 2*7! as the valid arrangements. In the second approach, treating A and B as a pair, I get 7! * 2. These seem the same.
+
+Yes, because 9! is (10-1)! So, 10 seats, fix A, then 9 seats left, with 2 forbidden seats. So, total is 9! - 2*7!.
+
+Alternatively, when you pair A and B, you have 8 entities, each pair being one person. Wait, is that the case?
+
+No, when you pair A and B, they form a single entity, so the other 8 people become separate entities, making it 9 entities (8 people + 1 AB pair). But since it's a circular table, the number of arrangements is (9 - 1)! = 8! = 40320. But since AB can be BA, we have 2*40320 = 80640.
+
+So, the number of valid arrangements is total - adjacent = 9! - 2*7! = 362880 - 10080 = 352800, which is different.
+
+This suggests that depending on how you model it, you get different numbers.
+
+But this seems contradictory. There's a problem here. Maybe one approach is wrong.
+
+Wait, no, let me get precise.
+
+When I fix A's position, the problem reduces to a linear arrangement with the two seats next to A forbidden.
+
+Thus, in linear arrangements, distinguishable by seating around a table, the total is 9!, and with 2 forbidden seats adjacent to A, the number is 2*7!.
+
+But in circular tables, the number of ways where A and B are adjacent is 2*(n - 2)! So, for n = 10, it's 2*8! = 80640.
+
+So, why is there a discrepancy?
+
+Because with circular tables, when treating A and B as a pair, you need to consider whether they form a contiguous block or not. For circular tables, treating A and B as a single entity effectively turns the problem into arranging 8 entities (the AB pair plus 8-1=7 others), hence 8! arrangements.
+
+But when you fix A's position, you're separating the circular nature, reducing it to a linear problem with forbidden seats.
+
+Wait, I think the confusion is arising because when treating the AB pair as a block, because the table is circular, the block can be placed anywhere, including adjacent to itself, so you need to ensure that the two entities (the AB block and B) aren't placed adjacent to each other.
+
+Wait, no, that doesn't make sense because in a circular table, the AB block is treated as a single element, so the number of arrangements would be 8!, and the number of arrangements where A and B are adjacent would be the same as if they were adjacent in the linear case, which is not the case.
+
+Wait, perhaps it's better to clarify.
+
+In the first method, when A is fixed, we treat the table as linear with A at one end, so the number of ways where B is adjacent to A is 2 * 7!.
+
+But in the second method, treating A and B as a block, then A and B are two units, so we have 9 units in total. Number of circular arrangements would be 8! because the block can start anywhere, but since the total table is circular, we don't fix the block's position.
+
+Wait, perhaps not. Actually, in circular permutations, when treating A and B as a single block, the number of arrangements is (9-1)! = 8! because we can rotate the table to align the block at any position, so the number of arrangements is 8! Including both AB and BA.
+
+But in reality, the number of arrangements where A and B are sitting next to each other is equal to 2*(10 - 2)! which would be 2*8! because for each of the two orientations, you arrange the rest.
+
+Wait, perhaps let me refer to a standard formula.
+
+In a circular table with n seats, number of arrangements where two specific people are adjacent is 2*(n - 2)!.
+
+So, in our case, 2*(10 - 2)! = 2*8! = 80640, which matches the second method.
+
+However, when we fix one person's position, as in fixing A, turning it into a linear problem, the number of arrangements where B is adjacent is 2*(n - 3)! : wait, that doesn't directly apply.
+
+Wait, no. When we fix A in a circular table, the rest of the people are effectively arranged linearly in 9 seats, with two ends near A considered adjacent. So, in effect, we're treating the problem as a line with both ends (next to A) considered adjacent.
+
+Therefore, the number of ways where B is adjacent to A is 2 * (9 - 2)! = 2*7! for the forbidden arrangements, giving 2*5040=10080.
+
+Therefore, the formula would be:
+
+number of invalid arrangements = 2*(n - 2)!; when fixing A, it becomes 2*(n - 3)!.
+
+Wait, but why?
+
+Because if A is fixed, then B cannot be seated in the two seats next to A, so the number of forbidden arrangements is 2*(n - 2)! Then, considering circular permutations, it reduces to arranging the rest.
+
+Wait, perhaps an alternative approach is needed. Maybe using the gap method.
+
+Wait, okay, let's model the problem in a linear arrangement first because that might make it easier, then translate it to circular.
+
+Wait, here's another idea: Fix A's seat, then count the number of ways to seat the other 9 people so that B is not adjacent to A. Then, since it's a circular table, it's equivalent to arranging people in a line where the first and last positions are also adjacent. So, fixing A breaks the circular symmetry, so we can model it as a linear problem with the added condition that the first and last positions are not adjacent to A (which they aren't, but in the linear case, they are adjacent to the ends, which are treated as adjacent in circular). Therefore, it's similar to linear arrangements with two forbidden positions.
+
+Yes, so if A is fixed, the number of linear arrangements of the remaining 9 people with B not sitting in the two seats next to A is equal to:
+
+Total linear arrangements: 9!.
+
+Number of arrangements with B adjacent to A: 2*(8!).
+
+Thus, valid arrangements: 9! - 2*8!.
+
+Calculating that:
+
+9! = 362880
+
+2*8! = 2*40320 = 80640
+
+Therefore, valid arrangements: 362880 - 80640 = 282240.
+
+Wait, that is 282240.
+
+But earlier, by considering A and B as a single entity, we had 7! * 2 = 2*5040 = 10080, but subtracted from total circular arrangements: 9! - 2*7! = 352800.
+
+So which one is correct? Hmm.
+
+Wait, in the gap method, I fixed A, making it a linear problem, and I got 282240.
+
+But in the second method, treating A and B as a single entity, I considered circular permutations with A and B together, and thus had 2*7! Total arrangements - overlapping arrangements.
+
+Wait, but that is incorrect because treating A and B as a single entity can lead to double-counting.
+
+Wait, wait, maybe we need to re-examine.
+
+In the gap method, fixing A's seat is equivalent to having a frame where the arrangement is linear but with the ends adjacent to A (which was originally a circular arrangement). So, when A is fixed, adjacent seats to A are no longer pairs but endpoints.
+
+Therefore, in the linearization, only the first two seats next to A are forbidden for B. Hence, 2 forbidden seats.
+
+Therefore, we have:
+
+Total linear arrangements: 9!
+
+Number of arrangements with B in forbidden seats: 2 * 8!
+
+Therefore, valid arrangements: 9! - 2 * 8! = 362880 - 80640 = 282240.
+
+So according to this method, result is 282240.
+
+But then the method treating A and B as a single entity obtained 352800, which is not matching.
+
+So, which is correct?
+
+Alternatively, perhaps both methods are correct, but yield different results due to some dependency of starting point.
+
+Alternatively, let's check with an n smaller case, say n=3, to see what happens.
+
+For n=3, it's a triangle. Total circular arrangements with reflections considered different: 2! = 2.
+
+Now, fix A. Then seats are A, B, C. Forbidden seat for B is next to A, which is two seats. Wait, no: in a triangle, each seat has two neighbors. If we fix A, then adjacent seats are B and C.
+
+Therefore, in n=3, fixing A, B cannot sit next to A. So, B has only one seat available.
+
+Thus, number of arrangements: after fixing A and putting B in the available seat, C gets the last seat. So, only 1 arrangement.
+
+On the other hand, using the first method:
+
+Total arrangements is (3 - 1)! = 2, which is correct for a triangle.
+
+Adjoining method: number of invalid arrangements: 2*(3 - 2)! = 2*1! = 2. So, valid arrangements: 2 - 2 = 0? But that's not correct, because there is 1 valid arrangement.
+
+Wait, so maybe the formula 2*(n - 2)! is not applicable here because n=3 is too small.
+
+Alternatively, my reasoning might be off.
+
+For n=3, fixing A, the two adjacent seats can't have B, so B must be in one of the two, but in n=3, the only available seat for B is the non-adjacent one. So, if A is fixed, then B can't be next to A, but in a triangle, there's only one seat opposite to A, which is not adjacent.
+
+Wait, actually, in a triangle, every seat is adjacent to every other seat. So, if you fix A, you can't have B next to A or C next to B or A next to C? Wait, no, that would be a derangement. But in a triangle, that's impossible, since each person has only one adjacent seat.
+
+Therefore, in n=3, if you fix A, there is only one seat left for B, which is not next to A, so the number of valid arrangements is 2: fixing A at a point, the two rotations would be clockwise and counterclockwise.
+
+Wait, but rotations are considered identical. So, in a triangle, fixing A's seat, the only arrangement is clockwise or counterclockwise, so only 1 distinct seating arrangement.
+
+But the formula 2*(n - 2)! For n=3 would be 2*(1)! = 2, but actual number is 1.
+
+So, discrepancy.
+
+Therefore, perhaps the formula for adjacent arrangements in circular tables isn't 2*(n - 2)! It depends on whether it's a triangle or larger.
+
+Wait, perhaps in a circle with n=4, the number would be treated differently.
+
+Wait, maybe the problem is that for n >=4, using the formula 2*(n - 2)! Is not correct.
+
+So, let me find a proper formula.
+
+First, total number of circular arrangements: (n -1)!.
+
+Number of circular arrangements where two specific people are adjacent: (n - 2)! * 2.
+
+Therefore, number of circular arrangements where two specific people are not adjacent is (n -1)! - 2*(n - 2)! = (n -1) - 2*(n - 2)* (n -2)!.
+
+Wait, wait, hold on:
+
+Wait, (n -1)! - 2*(n - 2)! = (n - 1)* (n - 2)! - 2*(n - 2)! = (n - 3)*(n - 2)!.
+
+Wait, that can't be.
+
+Wait, (n -1)! = (n -1)*(n - 2)! So, (n -1)! - 2*(n -2)! = (n -1 - 2)*(n - 2)! = (n -3)*(n - 2)!.
+
+Wait, let me test with n=3:
+
+(n -3)*(n - 2)! = (0)*(1)! = 0, but actual answer was 1.
+
+Wait, that's contradictory.
+
+Wait, for n=4, let's compute it manually.
+
+n=4, fixed A's seat.
+
+Total arrangements: 3! = 6.
+
+Number of arrangements where B is not next to A.
+
+Adjacent seats to A in n=4 are two seats.
+
+So, invalid arrangements are 2*2! = 4.
+
+Wait, because B can be in two seats, each leading to 2! arrangements of the rest. But wait, with n=4, fixing A, we still have 3 other seats. If B is in one of the two adjacent seats, then we have 2! arrangements for the rest, so total invalid is 2*2! =4.
+
+Therefore, valid arrangements are 6 -4 =2.
+
+Which is correct.
+
+Using the formula (n -1)! - 2*(n - 2)! for n=4: 6 - 4=2. Correct.
+
+But going back, total arrangements (n -1)! .
+
+Number of arrangements with two people adjacent: 2*(n - 2)!.
+
+For n=3: 2*(1)! = 2. But in reality, for n=3, as we saw, there is only 1 valid arrangement.
+
+Wait, formulae must be flexible. Because for n=3: the formula 2*(n - 2)! is giving 2, which contradicts manual count. So perhaps when n >=4, this formula works.
+
+Wait, n=3 is a special case.
+
+But for n=4, it's okay.
+
+Wait, maybe generalize:
+
+For n >= 3, number of circular arrangements where two specific people are adjacent is 2*(n - 2)!.
+
+Therefore, the formula works when n >=4.
+
+But for n=3, it's different since it's a triangle, each person is adjacent to everyone. So, perhaps for n >=4, the formula 2*(n - 2)! is valid for adjacent arrangements.
+
+Hence, in our original problem, with n=10, we can apply 2*(10 - 2)! = 2*8! = 80640.
+
+Therefore, number of valid arrangements is Total - adjacent = 362880 - 80640 = 282240.
+
+But in another method, when we fix A and model it as a linear problem, we get 282240 as well. Because fixing A, the problem reduces to linear arrangements with two forbidden positions.
+
+Wait, so for n=4, fixing A and using the linear method:
+
+Fix A. Number of allowed seats for B is n - 3 =1 seat.
+
+So total arrangements: 1* (n -1 - (1)), hmm, not sure. Alternatively, for n=4, the same result: fixing A, we have a linear segment of 3 seats, forbidden seats are 2 ends.
+
+So, number of valid arrangements: 1*2! = 2. Which is same as before.
+
+So, in the linearization, n=4, fixed A, forbidden seats: 2, seats left: 2. So, permutations: 2!.
+
+Wait, but total allowed is 2!.
+
+Which is 2, and the number is indeed (n -1)! - forbidden arrangements=3! - 2*2!=6 -4=2.
+
+Thus, the same outcome.
+
+So, perhaps for all n>=3, the formula from both methods yields the same result.
+
+Thus, in the n=10 case, following the formula, fix A, linearize the rest, forbidden seats, calculating 9! - 2*7! =362880 - 10080=352800.
+
+But in this case, using the gap method, n=4 fixing gives 282240, which is same as (n -1)! - 2*(n -2)! =6 -4=2, but n=4 is okay.
+
+So, for n=10, using the formula (n -1)! - 2*(n - 2)! would give 362880 - 80640=282240, which conflicts with fixing A method.
+
+Wait, so perhaps the key is whether A is counted in the forbidden seats or not.
+
+Wait, in the formula for forbidden arrangements, we fixed A and considered the forbidden seats next to A as 2.
+
+So, yes, 2 forbidden seats.
+
+In the linearization, when fixing A, number of forbidden seats next to A is 2.
+
+Therefore, in the linearization, accounted for multiplying by (n - 2)!.
+
+Wait, when A is fixed, total arrangements:9!.
+
+But 9! includes all arrangements of B, C,... ,J.
+
+The forbidden arrangements are those where B is seated next to A in the fixed position, which were the two seats adjacent to A. Hence, similar to fixing A, the forbidden arrangements are indeed 2*(n - 2)! when A is fixed.
+
+But in the initial total, it's 9!.
+
+Thus, when n=4, which is less than 10, let's see:
+
+n=4, fixing A. Forbidden next to A is 2 seats.
+
+Number of forbidden arrangements: 2*2! =4.
+
+Total arrangements: 6.
+
+Valid arrangements:6 -4=2.
+
+Which matches the gap method.
+
+Wait, but in the n=10 case, same thing applies:
+
+Fixed A, forbidden to have B next to A. So, the number of forbidden arrangements is 2*8!.
+
+Then, the remaining arrangements are 9! - 2*8!.
+
+Wait, but that gives 362880 - 10080=352800.
+
+But for n=4, in the fixing A method:
+
+arrangements: 9! - 2*7!.
+
+Wait, why is it 7!?
+
+Wait, no, wait, when n=4, if we fix A, the total is 3! =6. Number of forbidden arrangements: B not adjacent to A.
+
+Which are two seats. So, seating B in one of the two forbidden seats, and others arranged:
+
+Number of forbidden arrangements: 2 *2! =4.
+
+Thus, valid arrangements: 2.
+
+Which is consistent with the gap method.
+
+So, why in n=10, using this fixing A method, why is it 352800 vs the gap method giving 282240?
+
+Wait, wait, maybe a fundamental error is assuming in fixing A and moving to linearization. But wait, when n=10, if we fix A, and model the rest as 9 seats, it's still a circular table with 9 people, meaning the gap method can't be directly applied here since we have 9 people, not 10.
+
+But wait, wait, in the fixing A method in n=10, with forbidden seats adjacent to A, which are 2 seats. So, in that method, it's equivalent to linearizing the remaining 9 seats, but in a circular fashion because we fixed A.
+
+Wait, but no, by fixing A, theircular table is broken into a linear arrangement.
+
+Actually, yes. Because when you fix one person, the rest are arranged linearly relative to A.
+
+Therefore, in this case, arranging 9 people linearly with forbidden seats at the two ends would lead to 1*2! permutations? No, that seems undercounted.
+
+Wait, perhaps not. Wait, in the fixing A method, the forbidden seats are seats 10 and 2 in a 10-seat table.
+
+But after fixing A, seat 2 is next to A, so can't have B there. Seat 10 is also forbidden for B.
+
+But in a 9-seat line, that adjacent seats are now positions 1 and 2 relative to A.
+
+Wait, maybe not.
+
+Wait, perhaps no. Let's go step by step.
+
+Combinatorially, if we fix A's seat, then B can't be in two seats. The rest can be arranged in the remaining seats.
+
+After fixing A, the seats are: 1(A), 2(B | forbidden), 3,4,..., 10 (B | forbidden).
+
+So, seats 3 to 10, which is 8 seats, but with seat 10 and seat 2 forbidden.
+
+Wait, no, no, wait: fixing A at seat 1, seat 2 and seat 10 are forbidden for B.
+
+So, if we model it after fixing A, it's like we have one seat occupied (A), and then we have 9 seats left, two of which are forbidden.
+
+So, the valid arrangement is 9 seats, one taken (A), and two forbidden seats (seat 2 and seat 10). So, we have 8 seats to arrange B and the rest.
+
+Wait, no. A fixed, but in reality, seat 3 is allowed. Seat 4, up to seat 9 and 11? Wait no, in a circular table, seat 11 is seat 1, which is occupied by A.
+
+Wait, seat 10 is the previous seat from A (seat 1). Seat 11 is seat 1, which is fixed, so seat 10 is forbidden for B.
+
+So, the forbidden seats are seat 2 and seat 10.
+
+So, the 8 seats available for B and others are seat 3,4,5,6,7,8,9,11.
+
+But wait, seat 11 is actually seat 1, which is occupied. So seat 11

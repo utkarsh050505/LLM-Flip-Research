@@ -1,0 +1,33 @@
+{
+  "backend": "transformers",
+  "model_id": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
+  "device_map": "auto",
+  "dtype": "bfloat16",
+  "quantization": null,
+  "attn_implementation": "sdpa",
+  "max_fcs_tokens": 8000,
+  "fcs_attempts": 6,
+  "min_tokens_before_fcs": 15,
+  "num_branches": 6,
+  "branch_temperature": 1.0,
+  "fcs_temperature": 0.7,
+  "budget_multiplier": 3,
+  "min_target_budget": 5000,
+  "max_target_budget": 5000,
+  "conclusion_buffer_tokens": 5000,
+  "check_every": 4,
+  "conclude_probability_threshold": 0.05,
+  "max_repeated_boxed": 3,
+  "output_jsonl": "project/results/pcc_branch_runs.jsonl",
+  "reasoning_format": {
+    "name": "deepseek_r1",
+    "think_close": "</think>",
+    "final_answer_prompt": "</think>\n\n**Final Answer:**\n\\boxed{",
+    "requires_visible_reasoning": true
+  },
+  "wait_phrases": [
+    " Wait,",
+    " Wait, actually, let me try solving this a completely different way to check:",
+    " Wait, let me question my core assumption here and see if another interpretation fits:"
+  ]
+}
