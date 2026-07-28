@@ -31,7 +31,7 @@ class ExperimentConfig:
     budget_multiplier: int = 3
     min_target_budget: int = 400
     max_target_budget: int = 4000
-    extra_branch_tokens: int = 1000
+    conclusion_buffer_tokens: int = 500
     check_every: int = 4
     conclude_probability_threshold: float = 0.05
     max_repeated_boxed: int = 3

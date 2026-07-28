@@ -59,7 +59,7 @@ def answer_appears(text: str, answer: str) -> bool:
         return False
     escaped = re.escape(str(answer))
     marked_pattern = (
-        rf"(?i)(?:final\s+answer\s+is|the\s+answer\s+is|answer\s*:\s*|=\s*|"
+        rf"(?i)(?:final\s+answer\s+is|the\s+answer\s+is|answer\s*:\s*|"
         rf"\\boxed\{{)\s*{escaped}\b"
     )
     if re.search(marked_pattern, text):

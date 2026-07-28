@@ -7,7 +7,6 @@ from backends.base import BackendError, ModelBackend
 from pcc.answer import answer_appears, evaluate_answer
 from pcc.config import ExperimentConfig
 
-
 @dataclass(frozen=True)
 class FCSResult:
     found: bool
@@ -54,6 +53,7 @@ class PCCBranchExperiment:
     def run(self, prompt: str, ground_truth: str, *, seed: int | None = None) -> PCCBranchRunResult:
         self._require_supported_backend()
         if seed is not None:
+            # pyrefly: ignore [missing-import]
             import torch
 
             torch.manual_seed(seed)
@@ -94,6 +94,7 @@ class PCCBranchExperiment:
         )
 
     def find_fcs_prefix(self, prompt: str, ground_truth: str) -> FCSResult:
+        # pyrefly: ignore [missing-import]
         import torch
 
         for attempt in range(1, self.config.fcs_attempts + 1):
@@ -158,6 +159,7 @@ class PCCBranchExperiment:
         target_budget: int,
     ) -> BranchResult:
         import re
+        # pyrefly: ignore [missing-import]
         import torch
 
         out = self.backend.prefill(prefix_ids, output_hidden_states=True)
@@ -184,7 +186,7 @@ class PCCBranchExperiment:
         wait_injections = 0
         think_closed = False
         degenerate = False
-        max_tokens = target_budget + self.config.extra_branch_tokens
+        max_tokens = target_budget + self.config.conclusion_buffer_tokens
 
         for step in range(max_tokens):
             row = _metric_row(
@@ -276,6 +278,7 @@ class PCCBranchExperiment:
         wait_variants: list[list[int]],
         wait_injections: int,
     ) -> int | list[int]:
+        # pyrefly: ignore [missing-import]
         import torch
 
         can_force = think_close_id is not None and eos_id is not None
@@ -333,6 +336,7 @@ class PCCBranchExperiment:
 
 
 def _sample_from_logits(logits: Any, *, temperature: float, banned_token_ids: list[int] | None = None) -> int:
+    # pyrefly: ignore [missing-import]
     import torch
 
     working = logits.clone()
