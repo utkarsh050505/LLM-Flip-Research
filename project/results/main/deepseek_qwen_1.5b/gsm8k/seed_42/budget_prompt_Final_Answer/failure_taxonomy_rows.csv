@@ -1,0 +1,15 @@
+pid,category,severity,went_wrong,evidence,ground_truth,last_correct_answer,final_answer,last_correct_prefix_idx
+gsm8k_0,calculation_error,0,No change after last correct prefix.,"The final answer matches the ground truth, indicating no error.",18,18,18,14
+gsm8k_2,calculation_error,50,"The model incorrectly calculated the profit by $5k, leading to an overestimated value.","The final answer was 70000, while the correct calculation should have been 75000, resulting in a $5k error.",70000,70000,70000,14
+gsm8k_5,degenerate_repetition,0,No additional reasoning was made after the last correct prefix.,The final answer remained unchanged from the last-correct prefix.,64,64,64,14
+gsm8k_6,logical_error,50,Could not determine specific failure mode,,260,260,260,14
+gsm8k_8,logical_error,50,Could not determine specific failure mode,,45,45,45 \text{ miles},13
+gsm8k_9,calculation_error,0,,"The final answer is correct, so there's no error.",460,460,460,14
+gsm8k_10,logical_error,50,"The final answer was correct, but the reasoning did not sum the downloads properly.","The final answer was 366, which is correct, but the reasoning did not sum the downloads over three months.",366,366,366,7
+gsm8k_11,degenerate_repetition,0,,The final answer remained unchanged after the last-correct prefix.,694,694,694,14
+gsm8k_13,logical_error,50,Could not determine specific failure mode,,18,18,18,4
+gsm8k_14,logical_error,50,"The model continued reasoning but made a flawed assumption, leading to the same answer.","The model correctly identified the number of students in contemporary dance but then incorrectly assumed the same number were in jazz, leading to the same final answer.",60,60\%,60\%,14
+gsm8k_15,degenerate_repetition,0,,125},125,125,125,14
+gsm8k_17,logical_error,50,Could not determine specific failure mode,,57500,57500,57500,14
+gsm8k_18,logical_error,50,Could not determine specific failure mode,,7,7,7,14
+gsm8k_19,logical_error,50,"The model incorrectly applied the formula for average speed, leading to an incorrect calculation.","The last-correct trace incorrectly used the formula for average speed, while the final trace repeated this mistake.",6,6,6,6

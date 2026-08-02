@@ -1,0 +1,37 @@
+{
+  "total_classified": 14,
+  "categories": {
+    "calculation_error": {
+      "count": 3,
+      "percentage": 21.4,
+      "mean_severity": 16.7
+    },
+    "logical_error": {
+      "count": 8,
+      "percentage": 57.1,
+      "mean_severity": 50.0
+    },
+    "overthinking_flip": {
+      "count": 0,
+      "percentage": 0.0,
+      "mean_severity": 0.0
+    },
+    "degenerate_repetition": {
+      "count": 3,
+      "percentage": 21.4,
+      "mean_severity": 0.0
+    },
+    "format_error": {
+      "count": 0,
+      "percentage": 0.0,
+      "mean_severity": 0.0
+    }
+  },
+  "severity_mean": 32.1,
+  "severity_distribution": {
+    "0-25": 5,
+    "26-50": 9,
+    "51-75": 0,
+    "76-100": 0
+  }
+}

@@ -180,6 +180,107 @@ class TransformersBackend:
     def clone_cache(self, past_key_values: Any) -> Any:
         return copy.deepcopy(past_key_values)
 
+    def generate_text(
+        self,
+        prompt: str,
+        *,
+        max_new_tokens: int = 2048,
+        temperature: float = 0.7,
+        assistant_prefill: str | None = None,
+    ) -> str:
+        """
+        Generate text from a prompt using the chat template.
+
+        Args:
+            prompt: The user message content.
+            max_new_tokens: Maximum tokens to generate.
+            temperature: Sampling temperature.
+            assistant_prefill: Optional text to prepend as the assistant's
+                response start (for prefix-continuation experiments).
+
+        Returns:
+            Generated text string (only the new tokens).
+        """
+        self._require_loaded()
+        import torch
+
+        messages = [{"role": "user", "content": prompt}]
+
+        if hasattr(self.tokenizer, "apply_chat_template"):
+            # Always apply the template with add_generation_prompt=True
+            # This produces: <|im_start|>user\n{prompt}<|im_end|>\n<|im_start|>assistant\n
+            inputs = self.tokenizer.apply_chat_template(
+                messages,
+                add_generation_prompt=True,
+                return_tensors="pt",
+                return_dict=True,
+            ).to(self.device)
+
+            # If we have an assistant prefill, manually append its tokens
+            # This avoids continue_final_message which some templates don't support
+            if assistant_prefill:
+                prefill_ids = self.tokenizer.encode(
+                    assistant_prefill, add_special_tokens=False, return_tensors="pt"
+                ).to(self.device)
+                inputs["input_ids"] = torch.cat(
+                    [inputs["input_ids"], prefill_ids], dim=1
+                )
+                inputs["attention_mask"] = torch.ones_like(inputs["input_ids"])
+        else:
+            text = prompt
+            if assistant_prefill:
+                text = f"{prompt}\n{assistant_prefill}"
+            inputs = self.tokenizer(text, return_tensors="pt")
+            inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+        prompt_len = inputs["input_ids"].shape[1]
+
+        with torch.no_grad():
+            outputs = self.model.generate(
+                **inputs,
+                max_new_tokens=max_new_tokens,
+                do_sample=temperature > 0,
+                temperature=temperature if temperature > 0 else None,
+                pad_token_id=self.tokenizer.eos_token_id,
+            )
+
+        new_tokens = outputs[0][prompt_len:]
+        return self.tokenizer.decode(new_tokens, skip_special_tokens=True)
+
+    def generate_continuation(
+        self,
+        prompt: str,
+        prefix_text: str,
+        *,
+        max_new_tokens: int = 2048,
+        temperature: float = 0.1,
+        budget_forcing_suffix: str = "",
+    ) -> str:
+        """
+        Generate a continuation from a prompt + reasoning prefix.
+
+        This is the core method for difficulty prefix-continuation experiments.
+        The model sees the original question and a partial reasoning trace,
+        and must continue from that point.
+
+        Args:
+            prompt: The original question/user message.
+            prefix_text: The reasoning trace prefix to continue from.
+            max_new_tokens: Maximum tokens for the continuation.
+            temperature: Sampling temperature.
+            budget_forcing_suffix: Budget-forcing prompt to append after the prefix.
+
+        Returns:
+            Generated continuation text.
+        """
+        assistant_content = prefix_text + budget_forcing_suffix
+        return self.generate_text(
+            prompt=prompt,
+            max_new_tokens=max_new_tokens,
+            temperature=temperature,
+            assistant_prefill=assistant_content,
+        )
+
     def _require_loaded(self) -> None:
         if self.model is None or self.tokenizer is None:
             raise BackendError("Backend is not loaded. Call load() first.")
