@@ -1,0 +1,9 @@
+datasets
+numpy
+openai
+pillow
+rich
+torch
+transformers
+vllm
+wandb

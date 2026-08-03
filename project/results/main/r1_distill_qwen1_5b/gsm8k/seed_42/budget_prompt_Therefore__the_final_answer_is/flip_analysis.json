@@ -1,0 +1,80 @@
+{
+  "total_samples": 10,
+  "flipped_count": 0,
+  "flip_rate_pct": 0.0,
+  "flips": [],
+  "accuracy_curve": [
+    {
+      "prefix_idx": 0,
+      "accuracy": 40.0,
+      "correct": 4,
+      "total": 10
+    },
+    {
+      "prefix_idx": 1,
+      "accuracy": 10.0,
+      "correct": 1,
+      "total": 10
+    },
+    {
+      "prefix_idx": 2,
+      "accuracy": 50.0,
+      "correct": 5,
+      "total": 10
+    },
+    {
+      "prefix_idx": 3,
+      "accuracy": 44.44444444444444,
+      "correct": 4,
+      "total": 9
+    },
+    {
+      "prefix_idx": 4,
+      "accuracy": 20.0,
+      "correct": 1,
+      "total": 5
+    },
+    {
+      "prefix_idx": 5,
+      "accuracy": 20.0,
+      "correct": 1,
+      "total": 5
+    },
+    {
+      "prefix_idx": 6,
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 4
+    },
+    {
+      "prefix_idx": 7,
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 4
+    },
+    {
+      "prefix_idx": 8,
+      "accuracy": 33.33333333333333,
+      "correct": 1,
+      "total": 3
+    },
+    {
+      "prefix_idx": 9,
+      "accuracy": 100.0,
+      "correct": 2,
+      "total": 2
+    },
+    {
+      "prefix_idx": 10,
+      "accuracy": 100.0,
+      "correct": 1,
+      "total": 1
+    },
+    {
+      "prefix_idx": 11,
+      "accuracy": 100.0,
+      "correct": 1,
+      "total": 1
+    }
+  ]
+}

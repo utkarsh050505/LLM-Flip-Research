@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import re
 from typing import Any
+from datasets import load_dataset
 
 from benchmarking.base_benchmark import BaseBenchmark
 from benchmarking import benchmark
@@ -20,11 +21,12 @@ class GSM8K(BaseBenchmark):
     hf_name = "openai/gsm8k"
     split = "test"
 
-    def load_data(self) -> None:
-        from datasets import load_dataset
+    def load_benchmark(self) -> None:
+        self.dataset = load_dataset(self.get_hf_name(), "main", split=self.split)
 
-        ds = load_dataset(self.hf_name, "main", split=self.split)
-        self.samples = [dict(row) for row in ds]
+    @classmethod
+    def get_hf_name(cls) -> str:
+        return cls.hf_name
 
     def preprocess_samples(self, samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
         processed = []
@@ -35,9 +37,12 @@ class GSM8K(BaseBenchmark):
             final_answer = match.group(1).strip() if match else answer_text.strip()
 
             processed.append({
+                "idx": idx,
                 "pid": f"gsm8k_{idx}",
                 "query": sample["question"],
+                "decoded_image": None,
                 "answer": final_answer,
+                "choices": [],
                 "subject": "math",
                 "level": "grade_school",
             })
