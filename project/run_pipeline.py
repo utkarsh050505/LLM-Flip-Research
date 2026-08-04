@@ -285,15 +285,23 @@ def analyze_flips_and_difficulty(diff_file: str, run_path: str) -> dict:
         prefix_list.sort(key=lambda x: x.get("difficulty_idx", 0))
 
         correctness_list = []
+        preds = []
         for pr in prefix_list:
-            pred = pr.get("model_parsed_answer")
+            pred = pr.get("prediction")
             if pred is None:
-                pred = ParsingHelper.extract_last_boxed(pr.get("model_output", ""))
-            pred = ParsingHelper.clean(pred)
-            gt = ParsingHelper.clean(pr.get("ground_truth", ""))
+                pred = pr.get("model_parsed_answer")
+            if pred is None:
+                raw_out = pr.get("model_output", "")
+                pred = ParsingHelper.extract_last_boxed(raw_out)
+                if not pred:
+                    match = re.findall(r"[-+]?\d*\.\d+|\d+", raw_out)
+                    pred = match[-1] if match else ""
+            pred = ParsingHelper.clean(str(pred))
+            gt = ParsingHelper.clean(str(pr.get("ground_truth", "")))
 
-            is_correct = (pred == gt) if pred and gt else False
+            is_correct = (pred == gt and pred != "")
             correctness_list.append(is_correct)
+            preds.append(pred)
 
             d_idx = pr.get("difficulty_idx", 0)
             prefix_accuracy[d_idx]["total"] += 1
@@ -311,7 +319,7 @@ def analyze_flips_and_difficulty(diff_file: str, run_path: str) -> dict:
                 "idx": idx,
                 "pid": prefix_list[0].get("pid", idx),
                 "ground_truth": prefix_list[0].get("ground_truth", ""),
-                "final_prediction": ParsingHelper.clean(prefix_list[-1].get("model_parsed_answer")),
+                "final_prediction": preds[-1],
                 "last_correct_prefix_idx": last_correct_idx,
                 "first_incorrect_prefix_idx": first_incorrect_idx,
                 "total_prefixes": len(prefix_list),
@@ -497,7 +505,8 @@ def main() -> None:
         print(f"\n{'#' * 75}")
         print(f"  STAGE: Stage 4: Flip Detection & Accuracy Curve Analysis")
         print(f"{'#' * 75}")
-        analyze_flips_and_difficulty(difficulty_file, os.path.dirname(difficulty_file))
+        analysis_input = parsed_diff_file if os.path.exists(parsed_diff_file) else difficulty_file
+        analyze_flips_and_difficulty(analysis_input, os.path.dirname(difficulty_file))
         
         # Automatically generate high-res plot
         try:
