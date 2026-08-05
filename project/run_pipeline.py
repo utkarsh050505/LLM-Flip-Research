@@ -430,6 +430,10 @@ def main() -> None:
         else:
             print(f"\n  [INFO] Selected model: '{selected_model}'")
 
+    # Normalize benchmark name and handle typos
+    BENCHMARK_ALIASES = {"gms8k": "gsm8k", "math-500": "math500", "math_500": "math500"}
+    args.benchmark = BENCHMARK_ALIASES.get(args.benchmark.lower().strip(), args.benchmark)
+
     # 3. Resolve Quantization
     quantization = args.quantization
     if not quantization:
@@ -608,12 +612,20 @@ def main() -> None:
         ]
         run_stage(cmd_mech2, "Stage 6B: Generate Scientific Progression & Event-Aligned Dynamics")
 
+        cmd_mech3 = [
+            py, "extract_variable_level_evidence.py",
+            "--run_dir", experiment_leaf_dir,
+            "--model", hf_model_id,
+            "--quantization", quantization,
+        ]
+        run_stage(cmd_mech3, "Stage 6C: Extract Variable-Level Mechanistic Evidence (Termination, Instability, Geometry)")
+
         # Copy all plots to root experiment folder for instant access
         try:
             import glob
             import shutil
             root_exp_dir = os.path.join(args.output, args.experiment_name)
-            for ext in ("*.png", "*.pdf", "*.json", "*.csv"):
+            for ext in ("*.png", "*.pdf", "*.json", "*.csv", "*.tex"):
                 for src_file in glob.glob(os.path.join(experiment_leaf_dir, ext)):
                     dst_file = os.path.join(root_exp_dir, os.path.basename(src_file))
                     shutil.copy2(src_file, dst_file)
