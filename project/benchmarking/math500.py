@@ -20,11 +20,13 @@ class MATH500(BaseBenchmark):
     hf_name = "HuggingFaceH4/MATH-500"
     split = "test"
 
-    def load_data(self) -> None:
+    def load_benchmark(self) -> None:
         from datasets import load_dataset
+        self.dataset = load_dataset(self.get_hf_name(), split=self.split)
 
-        ds = load_dataset(self.hf_name, split=self.split)
-        self.samples = [dict(row) for row in ds]
+    @classmethod
+    def get_hf_name(cls) -> str:
+        return cls.hf_name
 
     def preprocess_samples(self, samples: list[dict[str, Any]]) -> list[dict[str, Any]]:
         processed = []
@@ -36,9 +38,12 @@ class MATH500(BaseBenchmark):
                 answer = self._extract_boxed(solution) or ""
 
             processed.append({
+                "idx": idx,
                 "pid": f"math500_{idx}",
                 "query": sample.get("problem", sample.get("question", "")),
+                "decoded_image": None,
                 "answer": answer,
+                "choices": [],
                 "subject": sample.get("subject", sample.get("type", "math")),
                 "level": sample.get("level", "unknown"),
             })

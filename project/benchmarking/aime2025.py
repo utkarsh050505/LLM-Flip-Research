@@ -6,7 +6,7 @@ import re
 
 
 @benchmark
-class GPQA(BaseBenchmark):
+class AIME2025(BaseBenchmark):
 
     hf_name = "simplescaling/aime25_nofigures"
     split_name = "train"

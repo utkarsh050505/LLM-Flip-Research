@@ -240,6 +240,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip_standalone_eval", action="store_true", help="Skip Stage 3 (standalone eval)")
     parser.add_argument("--skip_flips", action="store_true", help="Skip Stage 4 (flip detection analysis)")
     parser.add_argument("--skip_taxonomy", action="store_true", help="Skip Stage 5 (taxonomy classification)")
+    parser.add_argument("--skip_mechanistic", action="store_true", help="Skip Stage 6 (mechanistic insights & dynamics plots)")
     parser.add_argument("--judge_provider", type=str, default="groq", choices=["groq", "openai", "openrouter", "custom"], help="Judge LLM provider (default: groq)")
     parser.add_argument("--judge_model", type=str, default="llama-3.3-70b-versatile", help="Judge model name (default: llama-3.3-70b-versatile)")
     parser.add_argument("--judge_api_key", type=str, default=None, help="API key for judge LLM (or set GROQ_API_KEY)")
@@ -355,6 +356,35 @@ def analyze_flips_and_difficulty(diff_file: str, run_path: str) -> dict:
         if d_idx <= 15 or d_idx == max(prefix_accuracy.keys()):
             print(f"  Prefix {d_idx:<8} | {acc:6.1f}%      | ({pa['correct']}/{pa['total']})")
 
+    all_trajectories = {}
+    for idx, prefix_list in records_by_idx.items():
+        prefix_list.sort(key=lambda x: x.get("difficulty_idx", 0))
+        c_list = []
+        p_list = []
+        for pr in prefix_list:
+            pred = pr.get("prediction", pr.get("model_parsed_answer"))
+            if pred is None:
+                raw_out = pr.get("model_output", "")
+                pred = ParsingHelper.extract_last_boxed(raw_out)
+                if not pred:
+                    match = re.findall(r"[-+]?\d*\.\d+|\d+", raw_out)
+                    pred = match[-1] if match else ""
+            pred = ParsingHelper.clean(str(pred))
+            gt = ParsingHelper.clean(str(pr.get("ground_truth", "")))
+            c_list.append(pred == gt and pred != "")
+            p_list.append(pred)
+        
+        is_flip = any(fe["idx"] == idx for fe in flip_events)
+        all_trajectories[idx] = {
+            "idx": idx,
+            "ground_truth": prefix_list[0].get("ground_truth", ""),
+            "final_correct": c_list[-1] if c_list else False,
+            "is_flip": is_flip,
+            "correctness": c_list,
+            "predictions": p_list,
+            "trajectory_str": "".join(["[V]" if c else "[X]" for c in c_list]),
+        }
+
     os.makedirs(os.path.join(PROJECT_ROOT, run_path), exist_ok=True)
     flip_analysis_path = os.path.join(PROJECT_ROOT, run_path, "flip_analysis.json")
     flip_csv_path = os.path.join(PROJECT_ROOT, run_path, "flip_curve.csv")
@@ -366,6 +396,7 @@ def analyze_flips_and_difficulty(diff_file: str, run_path: str) -> dict:
             "flip_rate_pct": flip_rate,
             "flips": flip_events,
             "accuracy_curve": curve_data,
+            "all_trajectories": all_trajectories,
         }, f, indent=2)
 
     with open(flip_csv_path, "w", newline="", encoding="utf-8") as f:
@@ -552,6 +583,43 @@ def main() -> None:
             ]
             if not run_stage(cmd, "Stage 5: Failure Taxonomy Classification"):
                 print("Note: Stage 5 completed with warnings.")
+
+    # Stage 6: Mechanistic Insights & Dynamics Generation
+    if not args.skip_mechanistic and os.path.exists(difficulty_file):
+        experiment_leaf_dir = os.path.dirname(difficulty_file)
+        # Determine actual HuggingFace model path from register
+        hf_model_id = "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+        if selected_model in MODEL_REGISTER:
+            hf_model_id = getattr(MODEL_REGISTER[selected_model], "hf_name", selected_model)
+
+        cmd_mech1 = [
+            py, "extract_real_mechanistic_metrics.py",
+            "--run_dir", experiment_leaf_dir,
+            "--model", hf_model_id,
+            "--quantization", quantization,
+        ]
+        run_stage(cmd_mech1, "Stage 6A: Extract Real Mechanistic Metrics & Hidden-State Dynamics")
+
+        cmd_mech2 = [
+            py, "plot_scientific_mechanistic_insights.py",
+            "--run_dir", experiment_leaf_dir,
+            "--model", hf_model_id,
+            "--quantization", quantization,
+        ]
+        run_stage(cmd_mech2, "Stage 6B: Generate Scientific Progression & Event-Aligned Dynamics")
+
+        # Copy all plots to root experiment folder for instant access
+        try:
+            import glob
+            import shutil
+            root_exp_dir = os.path.join(args.output, args.experiment_name)
+            for ext in ("*.png", "*.pdf", "*.json", "*.csv"):
+                for src_file in glob.glob(os.path.join(experiment_leaf_dir, ext)):
+                    dst_file = os.path.join(root_exp_dir, os.path.basename(src_file))
+                    shutil.copy2(src_file, dst_file)
+            print(f"  [SYNC] All publication plots copied to top-level: {root_exp_dir}")
+        except Exception as e:
+            print(f"  [SYNC WARNING] Could not copy files to top-level: {e}")
 
     elapsed = time.time() - total_start
     print(f"\n{'=' * 75}")
