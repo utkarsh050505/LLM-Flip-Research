@@ -1,0 +1,1167 @@
+{
+  "total_samples": 30,
+  "flipped_count": 3,
+  "flip_rate_pct": 10.0,
+  "flips": [
+    {
+      "idx": 15,
+      "pid": 15,
+      "ground_truth": "6 - 5i",
+      "final_prediction": "4 - 2i",
+      "last_correct_prefix_idx": 17,
+      "first_incorrect_prefix_idx": 18,
+      "total_prefixes": 20,
+      "prefix_trajectory": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][V][X][X]"
+    },
+    {
+      "idx": 19,
+      "pid": 19,
+      "ground_truth": "3",
+      "final_prediction": "0",
+      "last_correct_prefix_idx": 18,
+      "first_incorrect_prefix_idx": 19,
+      "total_prefixes": 22,
+      "prefix_trajectory": "[X][X][X][X][V][X][V][X][X][X][X][V][X][V][X][V][V][X][V][X][X][X]"
+    },
+    {
+      "idx": 24,
+      "pid": 24,
+      "ground_truth": "10",
+      "final_prediction": "1",
+      "last_correct_prefix_idx": 19,
+      "first_incorrect_prefix_idx": 20,
+      "total_prefixes": 22,
+      "prefix_trajectory": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][V][V][X][V][X][X]"
+    }
+  ],
+  "accuracy_curve": [
+    {
+      "prefix_idx": 0,
+      "accuracy": 6.666666666666667,
+      "correct": 2,
+      "total": 30
+    },
+    {
+      "prefix_idx": 1,
+      "accuracy": 10.0,
+      "correct": 3,
+      "total": 30
+    },
+    {
+      "prefix_idx": 2,
+      "accuracy": 20.0,
+      "correct": 6,
+      "total": 30
+    },
+    {
+      "prefix_idx": 3,
+      "accuracy": 26.666666666666668,
+      "correct": 8,
+      "total": 30
+    },
+    {
+      "prefix_idx": 4,
+      "accuracy": 28.57142857142857,
+      "correct": 8,
+      "total": 28
+    },
+    {
+      "prefix_idx": 5,
+      "accuracy": 42.30769230769231,
+      "correct": 11,
+      "total": 26
+    },
+    {
+      "prefix_idx": 6,
+      "accuracy": 36.36363636363637,
+      "correct": 8,
+      "total": 22
+    },
+    {
+      "prefix_idx": 7,
+      "accuracy": 26.31578947368421,
+      "correct": 5,
+      "total": 19
+    },
+    {
+      "prefix_idx": 8,
+      "accuracy": 27.77777777777778,
+      "correct": 5,
+      "total": 18
+    },
+    {
+      "prefix_idx": 9,
+      "accuracy": 18.75,
+      "correct": 3,
+      "total": 16
+    },
+    {
+      "prefix_idx": 10,
+      "accuracy": 8.333333333333332,
+      "correct": 1,
+      "total": 12
+    },
+    {
+      "prefix_idx": 11,
+      "accuracy": 18.181818181818183,
+      "correct": 2,
+      "total": 11
+    },
+    {
+      "prefix_idx": 12,
+      "accuracy": 10.0,
+      "correct": 1,
+      "total": 10
+    },
+    {
+      "prefix_idx": 13,
+      "accuracy": 28.57142857142857,
+      "correct": 2,
+      "total": 7
+    },
+    {
+      "prefix_idx": 14,
+      "accuracy": 14.285714285714285,
+      "correct": 1,
+      "total": 7
+    },
+    {
+      "prefix_idx": 15,
+      "accuracy": 16.666666666666664,
+      "correct": 1,
+      "total": 6
+    },
+    {
+      "prefix_idx": 16,
+      "accuracy": 50.0,
+      "correct": 2,
+      "total": 4
+    },
+    {
+      "prefix_idx": 17,
+      "accuracy": 50.0,
+      "correct": 2,
+      "total": 4
+    },
+    {
+      "prefix_idx": 18,
+      "accuracy": 25.0,
+      "correct": 1,
+      "total": 4
+    },
+    {
+      "prefix_idx": 19,
+      "accuracy": 25.0,
+      "correct": 1,
+      "total": 4
+    },
+    {
+      "prefix_idx": 20,
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 3
+    },
+    {
+      "prefix_idx": 21,
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 3
+    },
+    {
+      "prefix_idx": 22,
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 1
+    },
+    {
+      "prefix_idx": 23,
+      "accuracy": 0.0,
+      "correct": 0,
+      "total": 1
+    }
+  ],
+  "all_trajectories": {
+    "0": {
+      "idx": 0,
+      "ground_truth": "3 2",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "3",
+        "3",
+        "3 2",
+        "3 2"
+      ],
+      "trajectory_str": "[X][X][V][V]"
+    },
+    "1": {
+      "idx": 1,
+      "ground_truth": "p - q",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "p2 2q - 1",
+        "3",
+        "1",
+        "27",
+        "p - q",
+        "p - q",
+        "p - q",
+        "3",
+        "0.4428",
+        "3",
+        "2",
+        "p - q",
+        "1n3 n - 1",
+        "p - q",
+        "p - q"
+      ],
+      "trajectory_str": "[X][X][X][X][V][V][V][X][X][X][X][V][X][V][V]"
+    },
+    "2": {
+      "idx": 2,
+      "ground_truth": "143",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "predictions": [
+        "132",
+        "2",
+        "2",
+        "143",
+        "143",
+        "143",
+        "143"
+      ],
+      "trajectory_str": "[X][X][X][V][V][V][V]"
+    },
+    "3": {
+      "idx": 3,
+      "ground_truth": "9",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "predictions": [
+        "9",
+        "1",
+        "1",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9",
+        "9"
+      ],
+      "trajectory_str": "[V][X][X][V][V][V][V][V][V]"
+    },
+    "4": {
+      "idx": 4,
+      "ground_truth": "evelyn",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "predictions": [
+        "evelyn",
+        "4",
+        "0.0235",
+        "0.206",
+        "5",
+        "evelyn",
+        "evelyn",
+        "evelyn",
+        "evelyn",
+        "evelyn"
+      ],
+      "trajectory_str": "[V][X][X][X][X][V][V][V][V][V]"
+    },
+    "5": {
+      "idx": 5,
+      "ground_truth": "42",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "126",
+        "7",
+        "42",
+        "42"
+      ],
+      "trajectory_str": "[X][X][V][V]"
+    },
+    "6": {
+      "idx": 6,
+      "ground_truth": "27",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "8",
+        "1",
+        "8",
+        "27",
+        "1",
+        "27",
+        "27"
+      ],
+      "trajectory_str": "[X][X][X][V][X][V][V]"
+    },
+    "7": {
+      "idx": 7,
+      "ground_truth": "90",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ],
+      "predictions": [
+        "60",
+        "4",
+        "6",
+        "120",
+        "12",
+        "0",
+        "1",
+        "3",
+        "90",
+        "2",
+        "90",
+        "60",
+        "90"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][V][X][V][X][V]"
+    },
+    "8": {
+      "idx": 8,
+      "ground_truth": "313",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "predictions": [
+        "34",
+        "13",
+        "313",
+        "313",
+        "313",
+        "313"
+      ],
+      "trajectory_str": "[X][X][V][V][V][V]"
+    },
+    "9": {
+      "idx": 9,
+      "ground_truth": "4",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "1",
+        "1",
+        "121",
+        "121",
+        "5",
+        "1",
+        "1",
+        "122",
+        "12",
+        "12",
+        "29",
+        "29",
+        "1"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "10": {
+      "idx": 10,
+      "ground_truth": "2220",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "2020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202",
+        "1",
+        "0000",
+        "0",
+        "2",
+        "2020",
+        "3",
+        "222",
+        "2022",
+        "2",
+        "22",
+        "2020",
+        "2022",
+        "2200",
+        "2",
+        "3"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "11": {
+      "idx": 11,
+      "ground_truth": "356",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "712",
+        "1",
+        "1",
+        "0",
+        "7",
+        "1",
+        "7",
+        "5",
+        "7",
+        "7",
+        "3",
+        "1"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "12": {
+      "idx": 12,
+      "ground_truth": "284",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true
+      ],
+      "predictions": [
+        "22",
+        "4",
+        "12",
+        "11",
+        "5",
+        "284",
+        "168",
+        "284",
+        "220",
+        "284"
+      ],
+      "trajectory_str": "[X][X][X][X][X][V][X][V][X][V]"
+    },
+    "13": {
+      "idx": 13,
+      "ground_truth": "5",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        true,
+        true,
+        true,
+        true
+      ],
+      "predictions": [
+        "15",
+        "5",
+        "5",
+        "5",
+        "5"
+      ],
+      "trajectory_str": "[X][V][V][V][V]"
+    },
+    "14": {
+      "idx": 14,
+      "ground_truth": "51",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        true,
+        true,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "7",
+        "51",
+        "51",
+        "90",
+        "2",
+        "51",
+        "7",
+        "51",
+        "51"
+      ],
+      "trajectory_str": "[X][V][V][X][X][V][X][V][V]"
+    },
+    "15": {
+      "idx": 15,
+      "ground_truth": "6 - 5i",
+      "final_correct": false,
+      "is_flip": true,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false
+      ],
+      "predictions": [
+        "2 - 3i",
+        "4",
+        "2",
+        "3",
+        "5",
+        "6",
+        "3",
+        "2",
+        "3",
+        "2",
+        "2",
+        "2",
+        "2",
+        "1",
+        "5",
+        "5",
+        "2",
+        "6 - 5i",
+        "2 - 32i",
+        "4 - 2i"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][V][X][X]"
+    },
+    "16": {
+      "idx": 16,
+      "ground_truth": "-50",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "5050",
+        "100",
+        "2",
+        "100",
+        "2",
+        "-50",
+        "-50"
+      ],
+      "trajectory_str": "[X][X][X][X][X][V][V]"
+    },
+    "17": {
+      "idx": 17,
+      "ground_truth": "",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "c",
+        "1",
+        "3",
+        "",
+        "0",
+        ""
+      ],
+      "trajectory_str": "[X][X][X][X][X][X]"
+    },
+    "18": {
+      "idx": 18,
+      "ground_truth": "28",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "124",
+        "180",
+        "12",
+        "124",
+        "180",
+        "180",
+        "180",
+        "0",
+        "124",
+        "248",
+        "124",
+        "124",
+        "124"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "19": {
+      "idx": 19,
+      "ground_truth": "3",
+      "final_correct": false,
+      "is_flip": true,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "14",
+        "0",
+        "216",
+        "1",
+        "3",
+        "9",
+        "3",
+        "9",
+        "2",
+        "1",
+        "27",
+        "3",
+        "27",
+        "3",
+        "18",
+        "3",
+        "3",
+        "1",
+        "3",
+        "1",
+        "2",
+        "0"
+      ],
+      "trajectory_str": "[X][X][X][X][V][X][V][X][X][X][X][V][X][V][X][V][V][X][V][X][X][X]"
+    },
+    "20": {
+      "idx": 20,
+      "ground_truth": "69i",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "6 9i",
+        "2",
+        "6 9i",
+        "6 9i",
+        "6 9i",
+        "6 9i"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X]"
+    },
+    "21": {
+      "idx": 21,
+      "ground_truth": "13535",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "1568",
+        "0",
+        "6",
+        "2",
+        "568",
+        "13536",
+        "0.4097",
+        "4",
+        "7",
+        "3",
+        "6767",
+        "2",
+        "7",
+        "2",
+        "13536",
+        "1"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "22": {
+      "idx": 22,
+      "ground_truth": "5",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "4",
+        "12",
+        "4",
+        "12",
+        "0",
+        "5",
+        "2",
+        "6",
+        "5",
+        "5"
+      ],
+      "trajectory_str": "[X][X][X][X][X][V][X][X][V][V]"
+    },
+    "23": {
+      "idx": 23,
+      "ground_truth": "x5",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "5",
+        "11",
+        "5",
+        "4",
+        "7",
+        "2",
+        "5",
+        "3",
+        "5",
+        "5",
+        "5"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "24": {
+      "idx": 24,
+      "ground_truth": "10",
+      "final_correct": false,
+      "is_flip": true,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        false,
+        false
+      ],
+      "predictions": [
+        "3",
+        "1",
+        "0.31",
+        "0",
+        "200",
+        "1",
+        "1",
+        "200",
+        "0.3",
+        "000",
+        "2",
+        "3",
+        "0.15",
+        "1",
+        "000",
+        "3",
+        "10",
+        "10",
+        "0.1",
+        "10",
+        "000",
+        "1"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][V][V][X][V][X][X]"
+    },
+    "25": {
+      "idx": 25,
+      "ground_truth": "1-2",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "5",
+        "4",
+        "2",
+        "2",
+        "1",
+        "2",
+        "2",
+        "1",
+        "2",
+        "0",
+        "0",
+        "1",
+        "0",
+        "1",
+        "3",
+        "13",
+        "1",
+        "-2 1",
+        "-2 1",
+        "-2 1",
+        "-1",
+        "4",
+        "1",
+        "4"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X][X]"
+    },
+    "26": {
+      "idx": 26,
+      "ground_truth": "144",
+      "final_correct": false,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "predictions": [
+        "1152",
+        "1",
+        "6",
+        "1",
+        "5",
+        "4",
+        "6",
+        "5",
+        "2",
+        "4"
+      ],
+      "trajectory_str": "[X][X][X][X][X][X][X][X][X][X]"
+    },
+    "27": {
+      "idx": 27,
+      "ground_truth": "78",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        true,
+        false,
+        false,
+        false,
+        true
+      ],
+      "predictions": [
+        "3",
+        "78",
+        "15",
+        "106",
+        "98",
+        "78"
+      ],
+      "trajectory_str": "[X][V][X][X][X][V]"
+    },
+    "28": {
+      "idx": 28,
+      "ground_truth": "-2 7i",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        true,
+        true
+      ],
+      "predictions": [
+        "90",
+        "2",
+        "2",
+        "7",
+        "-2 7i",
+        "7i 2i2",
+        "-2 7i",
+        "-2 7i"
+      ],
+      "trajectory_str": "[X][X][X][X][V][X][V][V]"
+    },
+    "29": {
+      "idx": 29,
+      "ground_truth": "225",
+      "final_correct": true,
+      "is_flip": false,
+      "correctness": [
+        false,
+        false,
+        true,
+        true,
+        true
+      ],
+      "predictions": [
+        "1155",
+        "1",
+        "225",
+        "225",
+        "225"
+      ],
+      "trajectory_str": "[X][X][V][V][V]"
+    }
+  }
+}

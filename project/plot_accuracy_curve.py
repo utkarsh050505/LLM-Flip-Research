@@ -32,7 +32,9 @@ if sys.platform == "win32":
     if hasattr(sys.stderr, "buffer"):
         sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
+# pyrefly: ignore [missing-import]
 import matplotlib.pyplot as plt
+# pyrefly: ignore [missing-import]
 import matplotlib.ticker as ticker
 import numpy as np
 
@@ -212,15 +214,18 @@ def plot_curve(
 
     # Trajectories data check
     trajectories = data.get("all_trajectories", {})
-    has_trajectories = bool(trajectories) and len(trajectories) <= 50
+    has_trajectories = bool(trajectories) and len(trajectories) <= 120
 
     if has_trajectories:
+        num_rows = len(trajectories)
+        traj_height = max(5.5, min(25.0, num_rows * 0.32))
+        total_height = 5.5 + traj_height
         fig, (ax, ax_traj) = plt.subplots(
             2, 1, 
-            figsize=(12, 11), 
+            figsize=(13, total_height), 
             dpi=300, 
             facecolor=bg_color,
-            gridspec_kw={"height_ratios": [1.1, 1.3], "hspace": 0.35}
+            gridspec_kw={"height_ratios": [5.5, traj_height], "hspace": 0.35}
         )
     else:
         fig, ax = plt.subplots(figsize=(11, 6.8), dpi=300, facecolor=bg_color)
@@ -400,6 +405,7 @@ def plot_curve(
                 matrix[r_idx, step_idx] = 1.0 if is_c else 0.0
 
         # Custom colormap: 0 = Red (Incorrect), 1 = Green (Correct)
+        # pyrefly: ignore [missing-import]
         from matplotlib.colors import ListedColormap
         cmap = ListedColormap(["#ef4444", "#10b981"])
         cmap.set_bad(color="#1e293b" if dark_mode else "#e2e8f0")
@@ -477,7 +483,7 @@ def plot_curve(
         ax_traj.set_xticks(range(max_steps))
         ax_traj.set_xticklabels([f"Step {s}" for s in range(max_steps)], fontsize=8.5, color=subtext_color)
         ax_traj.set_xlabel("Reasoning Prefix Step (Thinking Depth)", fontsize=11, fontweight="bold", color=text_color, labelpad=8)
-        ax_traj.set_title("Panel B: Reasoning Trajectories by Archetype (🟩 Correct | 🟥 Incorrect | ⬛ Completed)", fontsize=12, fontweight="bold", color=text_color, pad=10, loc="left")
+        ax_traj.set_title("Panel B: Problem Reasoning Trajectories by Archetype (Green: Correct | Red: Incorrect | Gray: Completed)", fontsize=12, fontweight="bold", color=text_color, pad=10, loc="left")
 
         for spine in ax_traj.spines.values():
             spine.set_color(grid_color)

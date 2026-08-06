@@ -1,0 +1,30 @@
+{"idx": 0, "prediction": "3 2", "ground_truth": "3 2"}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q"}
+{"idx": 2, "prediction": "143", "ground_truth": "143"}
+{"idx": 3, "prediction": "9", "ground_truth": "9"}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn"}
+{"idx": 5, "prediction": "42", "ground_truth": "42"}
+{"idx": 6, "prediction": "27", "ground_truth": "27"}
+{"idx": 7, "prediction": "90", "ground_truth": "90"}
+{"idx": 8, "prediction": "313", "ground_truth": "313"}
+{"idx": 9, "prediction": "", "ground_truth": "4"}
+{"idx": 10, "prediction": "", "ground_truth": "2220"}
+{"idx": 11, "prediction": "", "ground_truth": "356"}
+{"idx": 12, "prediction": "284", "ground_truth": "284"}
+{"idx": 13, "prediction": "5", "ground_truth": "5"}
+{"idx": 14, "prediction": "51", "ground_truth": "51"}
+{"idx": 15, "prediction": "6 - 5i", "ground_truth": "6 - 5i"}
+{"idx": 16, "prediction": "-50", "ground_truth": "-50"}
+{"idx": 17, "prediction": "", "ground_truth": ""}
+{"idx": 18, "prediction": "", "ground_truth": "28"}
+{"idx": 19, "prediction": "", "ground_truth": "3"}
+{"idx": 20, "prediction": "6 9i", "ground_truth": "69i"}
+{"idx": 21, "prediction": "", "ground_truth": "13535"}
+{"idx": 22, "prediction": "5", "ground_truth": "5"}
+{"idx": 23, "prediction": "5", "ground_truth": "x5"}
+{"idx": 24, "prediction": "", "ground_truth": "10"}
+{"idx": 25, "prediction": "-2 1", "ground_truth": "1-2"}
+{"idx": 26, "prediction": "", "ground_truth": "144"}
+{"idx": 27, "prediction": "78", "ground_truth": "78"}
+{"idx": 28, "prediction": "-2 7i", "ground_truth": "-2 7i"}
+{"idx": 29, "prediction": "225", "ground_truth": "225"}

@@ -1,0 +1,326 @@
+{"idx": 0, "prediction": "3", "ground_truth": "3 2", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 0, "prediction": "3", "ground_truth": "3 2", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 0, "prediction": "3 2", "ground_truth": "3 2", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 0, "prediction": "3 2", "ground_truth": "3 2", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 1, "prediction": "p2 2q - 1", "ground_truth": "p - q", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 1, "prediction": "3", "ground_truth": "p - q", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 1, "prediction": "1", "ground_truth": "p - q", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 1, "prediction": "27", "ground_truth": "p - q", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 1, "prediction": "3", "ground_truth": "p - q", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 1, "prediction": "0.4428", "ground_truth": "p - q", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 1, "prediction": "3", "ground_truth": "p - q", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 1, "prediction": "2", "ground_truth": "p - q", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 1, "prediction": "1n3 n - 1", "ground_truth": "p - q", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 2, "prediction": "132", "ground_truth": "143", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 2, "prediction": "2", "ground_truth": "143", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 2, "prediction": "2", "ground_truth": "143", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 3, "prediction": "1", "ground_truth": "9", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 3, "prediction": "1", "ground_truth": "9", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 4, "prediction": "4", "ground_truth": "evelyn", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 4, "prediction": "0.0235", "ground_truth": "evelyn", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 4, "prediction": "0.206", "ground_truth": "evelyn", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 4, "prediction": "5", "ground_truth": "evelyn", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 5, "prediction": "126", "ground_truth": "42", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 5, "prediction": "7", "ground_truth": "42", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 5, "prediction": "42", "ground_truth": "42", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 5, "prediction": "42", "ground_truth": "42", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 6, "prediction": "8", "ground_truth": "27", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 6, "prediction": "1", "ground_truth": "27", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 6, "prediction": "8", "ground_truth": "27", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 6, "prediction": "27", "ground_truth": "27", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 6, "prediction": "1", "ground_truth": "27", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 6, "prediction": "27", "ground_truth": "27", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 6, "prediction": "27", "ground_truth": "27", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 7, "prediction": "60", "ground_truth": "90", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 7, "prediction": "4", "ground_truth": "90", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 7, "prediction": "6", "ground_truth": "90", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 7, "prediction": "120", "ground_truth": "90", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 7, "prediction": "12", "ground_truth": "90", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 7, "prediction": "0", "ground_truth": "90", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 7, "prediction": "1", "ground_truth": "90", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 7, "prediction": "3", "ground_truth": "90", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 7, "prediction": "2", "ground_truth": "90", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 7, "prediction": "60", "ground_truth": "90", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 8, "prediction": "34", "ground_truth": "313", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 8, "prediction": "13", "ground_truth": "313", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 9, "prediction": "121", "ground_truth": "4", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 9, "prediction": "121", "ground_truth": "4", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 9, "prediction": "5", "ground_truth": "4", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 9, "prediction": "122", "ground_truth": "4", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 9, "prediction": "12", "ground_truth": "4", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 9, "prediction": "12", "ground_truth": "4", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 9, "prediction": "29", "ground_truth": "4", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 9, "prediction": "29", "ground_truth": "4", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 10, "prediction": "2020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202", "ground_truth": "2220", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 10, "prediction": "1", "ground_truth": "2220", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 10, "prediction": "0000", "ground_truth": "2220", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 10, "prediction": "0", "ground_truth": "2220", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 10, "prediction": "2", "ground_truth": "2220", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 10, "prediction": "2020", "ground_truth": "2220", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 10, "prediction": "3", "ground_truth": "2220", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 10, "prediction": "222", "ground_truth": "2220", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 10, "prediction": "2022", "ground_truth": "2220", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 10, "prediction": "2", "ground_truth": "2220", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 10, "prediction": "22", "ground_truth": "2220", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 10, "prediction": "2020", "ground_truth": "2220", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 10, "prediction": "2022", "ground_truth": "2220", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 10, "prediction": "2200", "ground_truth": "2220", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 10, "prediction": "2", "ground_truth": "2220", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 10, "prediction": "3", "ground_truth": "2220", "difficulty_idx": 15, "granularity": 15, "budget": 225}
+{"idx": 11, "prediction": "712", "ground_truth": "356", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 11, "prediction": "1", "ground_truth": "356", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 11, "prediction": "1", "ground_truth": "356", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 11, "prediction": "0", "ground_truth": "356", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 11, "prediction": "7", "ground_truth": "356", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 11, "prediction": "1", "ground_truth": "356", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 11, "prediction": "7", "ground_truth": "356", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 11, "prediction": "5", "ground_truth": "356", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 11, "prediction": "7", "ground_truth": "356", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 11, "prediction": "7", "ground_truth": "356", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 11, "prediction": "3", "ground_truth": "356", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 11, "prediction": "1", "ground_truth": "356", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 12, "prediction": "22", "ground_truth": "284", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 12, "prediction": "4", "ground_truth": "284", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 12, "prediction": "12", "ground_truth": "284", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 12, "prediction": "11", "ground_truth": "284", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 12, "prediction": "5", "ground_truth": "284", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 12, "prediction": "284", "ground_truth": "284", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 12, "prediction": "168", "ground_truth": "284", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 12, "prediction": "284", "ground_truth": "284", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 12, "prediction": "220", "ground_truth": "284", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 12, "prediction": "284", "ground_truth": "284", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 13, "prediction": "15", "ground_truth": "5", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 13, "prediction": "5", "ground_truth": "5", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 13, "prediction": "5", "ground_truth": "5", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 13, "prediction": "5", "ground_truth": "5", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 13, "prediction": "5", "ground_truth": "5", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 14, "prediction": "7", "ground_truth": "51", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 14, "prediction": "51", "ground_truth": "51", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 14, "prediction": "51", "ground_truth": "51", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 14, "prediction": "90", "ground_truth": "51", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 14, "prediction": "2", "ground_truth": "51", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 14, "prediction": "51", "ground_truth": "51", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 14, "prediction": "7", "ground_truth": "51", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 14, "prediction": "51", "ground_truth": "51", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 14, "prediction": "51", "ground_truth": "51", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 15, "prediction": "2 - 3i", "ground_truth": "6 - 5i", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 15, "prediction": "4", "ground_truth": "6 - 5i", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 15, "prediction": "3", "ground_truth": "6 - 5i", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 15, "prediction": "5", "ground_truth": "6 - 5i", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 15, "prediction": "6", "ground_truth": "6 - 5i", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 15, "prediction": "3", "ground_truth": "6 - 5i", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 15, "prediction": "3", "ground_truth": "6 - 5i", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 15, "prediction": "1", "ground_truth": "6 - 5i", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 15, "prediction": "5", "ground_truth": "6 - 5i", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 15, "prediction": "5", "ground_truth": "6 - 5i", "difficulty_idx": 15, "granularity": 15, "budget": 225}
+{"idx": 15, "prediction": "2", "ground_truth": "6 - 5i", "difficulty_idx": 16, "granularity": 15, "budget": 240}
+{"idx": 15, "prediction": "6 - 5i", "ground_truth": "6 - 5i", "difficulty_idx": 17, "granularity": 15, "budget": 255}
+{"idx": 15, "prediction": "2 - 32i", "ground_truth": "6 - 5i", "difficulty_idx": 18, "granularity": 15, "budget": 270}
+{"idx": 15, "prediction": "4 - 2i", "ground_truth": "6 - 5i", "difficulty_idx": 19, "granularity": 15, "budget": 285}
+{"idx": 16, "prediction": "5050", "ground_truth": "-50", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 16, "prediction": "100", "ground_truth": "-50", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 16, "prediction": "2", "ground_truth": "-50", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 16, "prediction": "100", "ground_truth": "-50", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 16, "prediction": "2", "ground_truth": "-50", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 16, "prediction": "-50", "ground_truth": "-50", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 16, "prediction": "-50", "ground_truth": "-50", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 17, "prediction": "c", "ground_truth": "", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 17, "prediction": "1", "ground_truth": "", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 17, "prediction": "3", "ground_truth": "", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 17, "prediction": "", "ground_truth": "", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 17, "prediction": "0", "ground_truth": "", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 17, "prediction": "", "ground_truth": "", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 18, "prediction": "124", "ground_truth": "28", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 18, "prediction": "180", "ground_truth": "28", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 18, "prediction": "12", "ground_truth": "28", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 18, "prediction": "124", "ground_truth": "28", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 18, "prediction": "180", "ground_truth": "28", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 18, "prediction": "180", "ground_truth": "28", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 18, "prediction": "180", "ground_truth": "28", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 18, "prediction": "0", "ground_truth": "28", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 18, "prediction": "124", "ground_truth": "28", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 18, "prediction": "248", "ground_truth": "28", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 18, "prediction": "124", "ground_truth": "28", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 18, "prediction": "124", "ground_truth": "28", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 18, "prediction": "124", "ground_truth": "28", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 19, "prediction": "14", "ground_truth": "3", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 19, "prediction": "0", "ground_truth": "3", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 19, "prediction": "216", "ground_truth": "3", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 19, "prediction": "1", "ground_truth": "3", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 19, "prediction": "9", "ground_truth": "3", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 19, "prediction": "9", "ground_truth": "3", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 19, "prediction": "2", "ground_truth": "3", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 19, "prediction": "1", "ground_truth": "3", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 19, "prediction": "27", "ground_truth": "3", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 19, "prediction": "27", "ground_truth": "3", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 19, "prediction": "18", "ground_truth": "3", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 15, "granularity": 15, "budget": 225}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 16, "granularity": 15, "budget": 240}
+{"idx": 19, "prediction": "1", "ground_truth": "3", "difficulty_idx": 17, "granularity": 15, "budget": 255}
+{"idx": 19, "prediction": "3", "ground_truth": "3", "difficulty_idx": 18, "granularity": 15, "budget": 270}
+{"idx": 19, "prediction": "1", "ground_truth": "3", "difficulty_idx": 19, "granularity": 15, "budget": 285}
+{"idx": 19, "prediction": "2", "ground_truth": "3", "difficulty_idx": 20, "granularity": 15, "budget": 300}
+{"idx": 19, "prediction": "0", "ground_truth": "3", "difficulty_idx": 21, "granularity": 15, "budget": 315}
+{"idx": 20, "prediction": "6 9i", "ground_truth": "69i", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 20, "prediction": "2", "ground_truth": "69i", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 20, "prediction": "6 9i", "ground_truth": "69i", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 20, "prediction": "6 9i", "ground_truth": "69i", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 20, "prediction": "6 9i", "ground_truth": "69i", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 20, "prediction": "6 9i", "ground_truth": "69i", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 21, "prediction": "1568", "ground_truth": "13535", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 21, "prediction": "0", "ground_truth": "13535", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 21, "prediction": "6", "ground_truth": "13535", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 21, "prediction": "2", "ground_truth": "13535", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 21, "prediction": "568", "ground_truth": "13535", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 21, "prediction": "13536", "ground_truth": "13535", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 21, "prediction": "0.4097", "ground_truth": "13535", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 21, "prediction": "4", "ground_truth": "13535", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 21, "prediction": "7", "ground_truth": "13535", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 21, "prediction": "3", "ground_truth": "13535", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 21, "prediction": "6767", "ground_truth": "13535", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 21, "prediction": "2", "ground_truth": "13535", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 21, "prediction": "7", "ground_truth": "13535", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 21, "prediction": "2", "ground_truth": "13535", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 21, "prediction": "13536", "ground_truth": "13535", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 21, "prediction": "1", "ground_truth": "13535", "difficulty_idx": 15, "granularity": 15, "budget": 225}
+{"idx": 22, "prediction": "4", "ground_truth": "5", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 22, "prediction": "12", "ground_truth": "5", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 22, "prediction": "4", "ground_truth": "5", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 22, "prediction": "12", "ground_truth": "5", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 22, "prediction": "0", "ground_truth": "5", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 22, "prediction": "5", "ground_truth": "5", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 22, "prediction": "2", "ground_truth": "5", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 22, "prediction": "6", "ground_truth": "5", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 22, "prediction": "5", "ground_truth": "5", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 22, "prediction": "5", "ground_truth": "5", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 23, "prediction": "5", "ground_truth": "x5", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 23, "prediction": "11", "ground_truth": "x5", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 23, "prediction": "5", "ground_truth": "x5", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 23, "prediction": "4", "ground_truth": "x5", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 23, "prediction": "7", "ground_truth": "x5", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 23, "prediction": "2", "ground_truth": "x5", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 23, "prediction": "5", "ground_truth": "x5", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 23, "prediction": "3", "ground_truth": "x5", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 23, "prediction": "5", "ground_truth": "x5", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 23, "prediction": "5", "ground_truth": "x5", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 23, "prediction": "5", "ground_truth": "x5", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 24, "prediction": "3", "ground_truth": "10", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 24, "prediction": "1", "ground_truth": "10", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 24, "prediction": "0.31", "ground_truth": "10", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 24, "prediction": "0", "ground_truth": "10", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 24, "prediction": "200", "ground_truth": "10", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 24, "prediction": "1", "ground_truth": "10", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 24, "prediction": "1", "ground_truth": "10", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 24, "prediction": "200", "ground_truth": "10", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 24, "prediction": "0.3", "ground_truth": "10", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 24, "prediction": "000", "ground_truth": "10", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 24, "prediction": "2", "ground_truth": "10", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 24, "prediction": "3", "ground_truth": "10", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 24, "prediction": "0.15", "ground_truth": "10", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 24, "prediction": "1", "ground_truth": "10", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 24, "prediction": "000", "ground_truth": "10", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 24, "prediction": "3", "ground_truth": "10", "difficulty_idx": 15, "granularity": 15, "budget": 225}
+{"idx": 24, "prediction": "10", "ground_truth": "10", "difficulty_idx": 16, "granularity": 15, "budget": 240}
+{"idx": 24, "prediction": "10", "ground_truth": "10", "difficulty_idx": 17, "granularity": 15, "budget": 255}
+{"idx": 24, "prediction": "0.1", "ground_truth": "10", "difficulty_idx": 18, "granularity": 15, "budget": 270}
+{"idx": 24, "prediction": "10", "ground_truth": "10", "difficulty_idx": 19, "granularity": 15, "budget": 285}
+{"idx": 24, "prediction": "000", "ground_truth": "10", "difficulty_idx": 20, "granularity": 15, "budget": 300}
+{"idx": 24, "prediction": "1", "ground_truth": "10", "difficulty_idx": 21, "granularity": 15, "budget": 315}
+{"idx": 25, "prediction": "5", "ground_truth": "1-2", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 25, "prediction": "4", "ground_truth": "1-2", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 25, "prediction": "2", "ground_truth": "1-2", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 25, "prediction": "2", "ground_truth": "1-2", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 25, "prediction": "1", "ground_truth": "1-2", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 25, "prediction": "2", "ground_truth": "1-2", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 25, "prediction": "2", "ground_truth": "1-2", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 25, "prediction": "1", "ground_truth": "1-2", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 25, "prediction": "2", "ground_truth": "1-2", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 25, "prediction": "0", "ground_truth": "1-2", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 25, "prediction": "0", "ground_truth": "1-2", "difficulty_idx": 10, "granularity": 15, "budget": 150}
+{"idx": 25, "prediction": "1", "ground_truth": "1-2", "difficulty_idx": 11, "granularity": 15, "budget": 165}
+{"idx": 25, "prediction": "0", "ground_truth": "1-2", "difficulty_idx": 12, "granularity": 15, "budget": 180}
+{"idx": 25, "prediction": "1", "ground_truth": "1-2", "difficulty_idx": 13, "granularity": 15, "budget": 195}
+{"idx": 25, "prediction": "3", "ground_truth": "1-2", "difficulty_idx": 14, "granularity": 15, "budget": 210}
+{"idx": 25, "prediction": "13", "ground_truth": "1-2", "difficulty_idx": 15, "granularity": 15, "budget": 225}
+{"idx": 25, "prediction": "1", "ground_truth": "1-2", "difficulty_idx": 16, "granularity": 15, "budget": 240}
+{"idx": 25, "prediction": "-2 1", "ground_truth": "1-2", "difficulty_idx": 17, "granularity": 15, "budget": 255}
+{"idx": 25, "prediction": "-2 1", "ground_truth": "1-2", "difficulty_idx": 18, "granularity": 15, "budget": 270}
+{"idx": 25, "prediction": "-2 1", "ground_truth": "1-2", "difficulty_idx": 19, "granularity": 15, "budget": 285}
+{"idx": 25, "prediction": "-1", "ground_truth": "1-2", "difficulty_idx": 20, "granularity": 15, "budget": 300}
+{"idx": 25, "prediction": "4", "ground_truth": "1-2", "difficulty_idx": 21, "granularity": 15, "budget": 315}
+{"idx": 25, "prediction": "1", "ground_truth": "1-2", "difficulty_idx": 22, "granularity": 15, "budget": 330}
+{"idx": 25, "prediction": "4", "ground_truth": "1-2", "difficulty_idx": 23, "granularity": 15, "budget": 345}
+{"idx": 26, "prediction": "1152", "ground_truth": "144", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 26, "prediction": "1", "ground_truth": "144", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 26, "prediction": "6", "ground_truth": "144", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 26, "prediction": "1", "ground_truth": "144", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 26, "prediction": "5", "ground_truth": "144", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 26, "prediction": "4", "ground_truth": "144", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 26, "prediction": "6", "ground_truth": "144", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 26, "prediction": "5", "ground_truth": "144", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 26, "prediction": "2", "ground_truth": "144", "difficulty_idx": 8, "granularity": 15, "budget": 120}
+{"idx": 26, "prediction": "4", "ground_truth": "144", "difficulty_idx": 9, "granularity": 15, "budget": 135}
+{"idx": 27, "prediction": "3", "ground_truth": "78", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 27, "prediction": "78", "ground_truth": "78", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 27, "prediction": "15", "ground_truth": "78", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 27, "prediction": "106", "ground_truth": "78", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 27, "prediction": "98", "ground_truth": "78", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 27, "prediction": "78", "ground_truth": "78", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 28, "prediction": "90", "ground_truth": "-2 7i", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 28, "prediction": "2", "ground_truth": "-2 7i", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 28, "prediction": "2", "ground_truth": "-2 7i", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 28, "prediction": "7", "ground_truth": "-2 7i", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 28, "prediction": "-2 7i", "ground_truth": "-2 7i", "difficulty_idx": 4, "granularity": 15, "budget": 60}
+{"idx": 28, "prediction": "7i 2i2", "ground_truth": "-2 7i", "difficulty_idx": 5, "granularity": 15, "budget": 75}
+{"idx": 28, "prediction": "-2 7i", "ground_truth": "-2 7i", "difficulty_idx": 6, "granularity": 15, "budget": 90}
+{"idx": 28, "prediction": "-2 7i", "ground_truth": "-2 7i", "difficulty_idx": 7, "granularity": 15, "budget": 105}
+{"idx": 29, "prediction": "1155", "ground_truth": "225", "difficulty_idx": 0, "granularity": 15, "budget": 0}
+{"idx": 29, "prediction": "1", "ground_truth": "225", "difficulty_idx": 1, "granularity": 15, "budget": 15}
+{"idx": 29, "prediction": "225", "ground_truth": "225", "difficulty_idx": 2, "granularity": 15, "budget": 30}
+{"idx": 29, "prediction": "225", "ground_truth": "225", "difficulty_idx": 3, "granularity": 15, "budget": 45}
+{"idx": 29, "prediction": "225", "ground_truth": "225", "difficulty_idx": 4, "granularity": 15, "budget": 60}
