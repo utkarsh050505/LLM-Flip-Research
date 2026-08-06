@@ -1,0 +1,59 @@
+{"idx": 0, "prediction": "3", "ground_truth": "3 2", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 0, "prediction": "3 2", "ground_truth": "3 2", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 0, "prediction": "3 2", "ground_truth": "3 2", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 1, "prediction": "32 p2 - 3 q", "ground_truth": "p - q", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 1, "prediction": "1", "ground_truth": "p - q", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 1, "prediction": "1", "ground_truth": "p - q", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 1, "prediction": "0", "ground_truth": "p - q", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 1, "prediction": "1", "ground_truth": "p - q", "difficulty_idx": 5, "granularity": 25, "budget": 125}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 6, "granularity": 25, "budget": 150}
+{"idx": 1, "prediction": "p2 q2", "ground_truth": "p - q", "difficulty_idx": 7, "granularity": 25, "budget": 175}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 8, "granularity": 25, "budget": 200}
+{"idx": 1, "prediction": "p - q", "ground_truth": "p - q", "difficulty_idx": 9, "granularity": 25, "budget": 225}
+{"idx": 2, "prediction": "1", "ground_truth": "143", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 2, "prediction": "1", "ground_truth": "143", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 2, "prediction": "143", "ground_truth": "143", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 3, "prediction": "2", "ground_truth": "9", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 3, "prediction": "196", "ground_truth": "9", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 3, "prediction": "1", "ground_truth": "9", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 3, "prediction": "9", "ground_truth": "9", "difficulty_idx": 5, "granularity": 25, "budget": 125}
+{"idx": 4, "prediction": "c", "ground_truth": "evelyn", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 4, "prediction": "0.206", "ground_truth": "evelyn", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 5, "granularity": 25, "budget": 125}
+{"idx": 4, "prediction": "evelyn", "ground_truth": "evelyn", "difficulty_idx": 6, "granularity": 25, "budget": 150}
+{"idx": 5, "prediction": "126", "ground_truth": "42", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 5, "prediction": "7", "ground_truth": "42", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 5, "prediction": "42", "ground_truth": "42", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 6, "prediction": "729", "ground_truth": "27", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 6, "prediction": "1", "ground_truth": "27", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 6, "prediction": "27", "ground_truth": "27", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 6, "prediction": "27", "ground_truth": "27", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 6, "prediction": "27", "ground_truth": "27", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 7, "prediction": "45", "ground_truth": "90", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 7, "prediction": "66.4375", "ground_truth": "90", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 7, "prediction": "1", "ground_truth": "90", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 7, "prediction": "6", "ground_truth": "90", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 5, "granularity": 25, "budget": 125}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 6, "granularity": 25, "budget": 150}
+{"idx": 7, "prediction": "90", "ground_truth": "90", "difficulty_idx": 7, "granularity": 25, "budget": 175}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 8, "prediction": "313", "ground_truth": "313", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 9, "prediction": "121", "ground_truth": "4", "difficulty_idx": 0, "granularity": 25, "budget": 0}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 1, "granularity": 25, "budget": 25}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 2, "granularity": 25, "budget": 50}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 3, "granularity": 25, "budget": 75}
+{"idx": 9, "prediction": "144", "ground_truth": "4", "difficulty_idx": 4, "granularity": 25, "budget": 100}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 5, "granularity": 25, "budget": 125}
+{"idx": 9, "prediction": "27", "ground_truth": "4", "difficulty_idx": 6, "granularity": 25, "budget": 150}
+{"idx": 9, "prediction": "1", "ground_truth": "4", "difficulty_idx": 7, "granularity": 25, "budget": 175}

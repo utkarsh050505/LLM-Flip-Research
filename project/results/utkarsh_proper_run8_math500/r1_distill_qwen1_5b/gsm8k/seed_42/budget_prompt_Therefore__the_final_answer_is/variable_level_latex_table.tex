@@ -1,0 +1,16 @@
+\begin{table*}[t]
+\centering
+\small
+\caption{\textbf{Variable-Level Mechanistic Comparison Across Reasoning Outcome Groups.} Metric values report empirical means across all generated tokens.}
+\label{tab:variable_mechanisms}
+\begin{tabular}{lccccccccc}
+\toprule
+\textbf{Outcome Group} & \textbf{N} & \textbf{Tokens} & \textbf{Entropy $\downarrow$} & \textbf{Margin $\uparrow$} & \textbf{JSD $\downarrow$} & \textbf{Late $L_2$ $\downarrow$} & \textbf{$P(\text{Term}) \uparrow$} & \textbf{Hesitations $\downarrow$} & \textbf{Rep. (\%)} \\
+\midrule
+Stable Correct & 2 & 1026 & 0.477 & 0.759 & 7.6824 & 418.503 & 0.0102 & 4.0 & 6.9% \\
+Prefix Volatile Recovery & 9 & 1736 & 0.486 & 0.757 & 7.4920 & 413.077 & 0.0191 & 8.1 & 13.5% \\
+Degenerate & 2 & 3928 & 0.657 & 0.688 & 6.8704 & 402.198 & 0.0067 & 51.5 & 41.2% \\
+Never Correct & 2 & 2502 & 0.630 & 0.704 & 6.9209 & 407.165 & 0.0085 & 18.5 & 22.1% \\
+\bottomrule
+\end{tabular}
+\end{table*}
