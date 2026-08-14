@@ -498,8 +498,6 @@ Open a GitHub issue for bugs, experiments, or methodology questions. See [`proje
 
 <div align="center">
 
-**Built by [Utkarsh](https://github.com/utkarsh050505)**
-
 *Interested in test-time compute, LLM reasoning, or mechanistic interpretability? Feel free to reach out!*
 
 </div>
