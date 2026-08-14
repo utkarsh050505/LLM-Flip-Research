@@ -111,6 +111,8 @@ Every reasoning trajectory is classified into one of six scientifically-defined 
 
 ### Accuracy vs. Reasoning Budget (GSM8K, DeepSeek-R1-Distill-Qwen-1.5B)
 
+![Accuracy Curve](project/results/utkarsh_proper_run2_gsm8k/accuracy_curve.png)
+
 > **The model's latent accuracy *peaks early*, often at 25–40% of its reasoning trace, before collapsing as it over-deliberates.**
 
 | Outcome Archetype | Avg. Tokens | Entropy H ↓ | Top-2 Margin ↑ | Late L₂ Velocity | P(Term) ↑ | Hesitations | 4-gram Repetition |
@@ -125,11 +127,15 @@ Every reasoning trajectory is classified into one of six scientifically-defined 
 
 ### Event-Aligned Flip Dynamics
 
+![Event Aligned Flip Dynamics](project/results/utkarsh_proper_run2_gsm8k/event_aligned_flip_dynamics.png)
+
 Centering analysis on the precise flip token (t = 0, window [−200, +200]):
 
 - 📈 **Entropy spikes ~50 tokens *prior* to the harmful flip** — a predictable early-warning signal
 - 📉 **Top-2 margin collapses** as the model loses single-token commitment
 - 🚀 **Late-layer L₂ velocity surges** — the residual stream undergoes sudden geometric disruption (representation shock)
+
+*For more extensive results, data traces, and failure categorization logs, please browse the **[Full Results Folder](project/results/utkarsh_proper_run2_gsm8k/)**.*
 
 ---
 
@@ -491,8 +497,6 @@ Open a GitHub issue for bugs, experiments, or methodology questions. See [`proje
 ---
 
 <div align="center">
-
-**Built by [Utkarsh](https://github.com/utkarsh050505)**
 
 *Interested in test-time compute, LLM reasoning, or mechanistic interpretability? Feel free to reach out!*
 
