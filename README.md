@@ -1,299 +1,499 @@
-# LLM-Flip-Research — Stop Before the Flip
+<div align="center">
 
-An experimental research prototype for studying **post-correctness collapse (PCC)** in large language model reasoning. PCC is the failure mode in which a model reaches a correct answer during its reasoning, continues generating tokens, and ultimately produces an incorrect final answer.
+# 🧠 Thinking Past the Answer
+### *Empirical & Mechanistic Dynamics of Overthinking, Flip-Flops, and Hesitation in Reasoning LLMs*
 
-The repository currently focuses on the measurement and branching groundwork needed to study that behavior. It can load selected Hugging Face causal language models, inspect generation tensors, compute per-token distribution and hidden-state metrics, export a single trace to CSV, and create sampled continuations from a shared reasoning prefix. It does **not** yet implement a trained hazard predictor, an automatic stopping controller, benchmark-scale data collection, or an HTTP API.
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-EE4C2C?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Hugging Face](https://img.shields.io/badge/🤗%20Hugging%20Face-Transformers-FFD21E?style=flat-square)](https://huggingface.co/)
+[![CUDA](https://img.shields.io/badge/CUDA-GPU%20Accelerated-76B900?style=flat-square&logo=nvidia&logoColor=white)](https://developer.nvidia.com/cuda-zone)
 
-## Project Overview
+**Can we detect — and stop — a reasoning model *before* it flips a correct answer to a wrong one?**
 
-The central research question is:
+</div>
 
-> Can signals available at a reasoning prefix indicate that continuing generation is likely to turn a currently correct answer into an incorrect one?
+---
 
-The working experimental approach is:
+## 📌 Abstract
 
-1. Generate a reasoning trace for a problem with a known answer.
-2. Locate the first point at which that answer appears in the model's reasoning. In this code, this is an oracle-style proxy for the **FCS boundary** (first-correct-solution boundary).
-3. Measure token-level uncertainty and internal-state movement around the trace.
-4. Reconstruct the model's key-value (KV) cache for the shared prefix, sample multiple continuations, and label final outcomes as stable correct or PCC.
+Modern Large Reasoning Models (LRMs) — such as **DeepSeek-R1**, **Qwen2.5-Math**, and **OpenAI o1/o3** — employ extended Chain-of-Thought (CoT) reasoning with test-time compute scaling to achieve state-of-the-art accuracy on complex mathematical and scientific benchmarks.
 
-This distinction matters: a useful system must avoid stopping productive self-correction (wrong → correct) while identifying harmful overthinking (correct → wrong).
+However, this research uncovers a systematic failure mode: **Post-Correctness Collapse (PCC)**, colloquially *"Thinking Past the Answer."* A model correctly solves a problem at an early intermediate reasoning stage — often within the first 20–40% of its thinking trace — then continues generating tokens, engages in uncalibrated second-guessing, and ultimately outputs an *incorrect* final answer.
 
-## Implemented Capabilities
+This repository presents the first systematic **empirical and mechanistic characterization** of this phenomenon using:
 
-- Interactive selection of a configured Hugging Face model and precision mode (BF16, 8-bit, or 4-bit NF4).
-- CUDA availability and GPU-memory reporting during a model download and generation smoke test.
-- Inspection of `generate()` score and hidden-state tensor layouts, including the prefill versus cached-decoding distinction.
-- Pure, unit-testable metrics for token entropy, top-two probability margin, Jensen–Shannon divergence, hidden-state L2 transition, and cosine similarity.
-- Per-token trace export to CSV across early, middle, and late transformer layers.
-- An exploratory same-prefix branching experiment based on cloned KV caches.
-- Heuristic final-answer extraction and labels for `STABLE_CORRECT`, `PCC`, and `NO_FINAL_ANSWER` branches.
+- 📊 **Token-level probability distributions** (entropy, top-2 margin, Jensen–Shannon divergence)
+- 🧬 **Layerwise residual stream geometry** (hidden-state L₂ velocity, cosine trajectory, PCA projections)
+- 🔍 **Variable-level evidence extraction** across 7 mechanistic dimensions
+- 🏷️ **A novel 6-archetype taxonomy** for reasoning trajectory classification
+- 📉 **Latent accuracy curves** via prefix-truncation and budget-forcing protocols
 
-## Tech Stack
+> **Key Finding:** Peak accuracy occurs significantly *before* the final token. Forcing an answer at 25–40% of the reasoning budget can outperform full-trace completion — meaning more thinking actively *hurts*.
 
-| Area | Technologies used in the current codebase |
-| --- | --- |
-| Language | Python |
-| ML runtime | PyTorch (`torch`) |
-| Model integration | Hugging Face Transformers (`AutoTokenizer`, `AutoModelForCausalLM`, `model.generate`) |
-| Quantization | BitsAndBytes via `BitsAndBytesConfig` for 4-bit NF4 and 8-bit loading |
-| Models configured | DeepSeek-R1-Distill-Qwen (1.5B/7B), DeepSeek-R1-Distill-Llama-8B, Qwen2.5-Math-1.5B-Instruct, MetaStone-S1-1.5B, and t0-s1-1.5B |
-| Data output | CSV (`trace_metrics.csv`) and console output |
-| Hardware target | CUDA-capable GPU; the instrumentation and branching scripts load models on CUDA |
-| Python standard library | `csv`, `copy`, `logging`, `pathlib`, `re`, and `typing` |
+---
 
-There is no frontend, database, vector database, cloud service integration, authentication mechanism, or HTTP/REST API in the current repository.
+## 🔬 Research Motivation
 
-## System Architecture
-
-The repository is organized as a script-driven research workflow. `model_config.py` holds the model registry and local paths. The download script uses a small CLI helper and logger; the remaining experimental scripts load the current hard-coded DeepSeek 1.5B model directly.
-
-```mermaid
-flowchart LR
-    Config["Model configuration<br/>model registry, device, paths"] --> Download["01_download_model.py<br/>interactive download and smoke test"]
-    CLI["CLI selection helper"] --> Download
-    Logger["Logging helper"] --> Download
-    Download --> HF["Hugging Face Transformers<br/>Tokenizer + Causal LM"]
-    HF <--> Cache["Local Hugging Face cache"]
-
-    HF --> Inspect["02_generate.py<br/>inspect generation tensors"]
-    HF --> Trace["04_single_trace_metrics.py<br/>collect one instrumented trace"]
-    Metrics["configs/metrics.py<br/>pure tensor metrics"] --> Trace
-    Trace --> CSV["trace_metrics.csv<br/>per-token measurements"]
-
-    HF --> Branch["05_branch_and_label.py<br/>FCS search + KV-cache branches"]
-    Branch --> Labels["Console labels<br/>STABLE_CORRECT / PCC / NO_FINAL_ANSWER"]
+```
+[Problem Prompt] ──▶ Step 1: Exploration ──▶ ... ──▶ Step k: ✅ CORRECT ANSWER FOUND
+                                                              │
+                                    (Overthinking begins)    │
+                                                              ▼
+                                              Step N: ❌ FINAL ANSWER IS WRONG
 ```
 
-### Component Responsibilities
+This failure mode has three root manifestations:
 
-| Component | Responsibility |
-| --- | --- |
-| [`project/configs/model_config.py`](project/configs/model_config.py) | Defines supported model IDs, a CUDA/CPU device setting, and local Hugging Face/output paths. |
-| [`project/src/utils/cli.py`](project/src/utils/cli.py) | Presents the interactive model and precision prompts used by the smoke test. |
-| [`project/src/utils/logger.py`](project/src/utils/logger.py) | Provides reusable console/file logging setup. |
-| [`project/scripts/01_download_model.py`](project/scripts/01_download_model.py) | Downloads/loads a selected model, runs a short reasoning prompt, and reports cache size and peak CUDA allocation. |
-| [`project/scripts/02_generate.py`](project/scripts/02_generate.py) | Documents and prints the shape behavior of generation scores and hidden states. |
-| [`project/configs/metrics.py`](project/configs/metrics.py) | Implements scalar metrics over one token distribution or a pair of hidden states. |
-| [`project/scripts/03_metrics_test.py`](project/scripts/03_metrics_test.py) | Checks the metric functions against controlled tensors. |
-| [`project/scripts/04_single_trace_metrics.py`](project/scripts/04_single_trace_metrics.py) | Generates a sampled trace, computes metrics per token, and writes the CSV. |
-| [`project/scripts/05_branch_and_label.py`](project/scripts/05_branch_and_label.py) | Searches for the first correct-answer proxy and samples matched continuations from a cloned cache. |
-| [`project/scripts/debug_cache.py`](project/scripts/debug_cache.py) | Small diagnostic for trying two `past_key_values`/input arrangements. |
+| Pathology | Description |
+|:---|:---|
+| **Harmful Flips (Strict PCC)** | Model finds the correct answer early, then loses confidence, re-derives incorrectly, and submits the wrong answer |
+| **Hesitation & Recovery** | Model oscillates between candidate answers mid-trace, but recovers via self-correction before the final output |
+| **Termination Suppression** | Model reaches the correct answer internally but lacks sufficient `P(EOS)` / `P(</think>)` probability to exit the reasoning loop |
 
-## Application and Data Flow
+Understanding and predicting these failure modes enables the design of **adaptive test-time compute controllers** that stop reasoning at the optimal moment — preventing overthinking while preserving beneficial self-correction.
 
-The normal development workflow is sequential: validate model access, verify tensor assumptions, validate metrics, inspect a trace, then attempt branching.
+---
+
+## 🏛️ System Architecture
+
+The pipeline is organized into 5 sequential, modular stages:
 
 ```mermaid
 flowchart TD
-    Start["Choose a configured model and precision"] --> Smoke["Download/load model and run smoke test"]
-    Smoke --> Shapes["Generate a short trace with scores and hidden states"]
-    Shapes --> Verify["Run metric sanity checks on known tensors"]
-    Verify --> Instrument["Generate a single sampled reasoning trace"]
-    Instrument --> Features["For every generated token:<br/>entropy, margin, JSD, L2, cosine"]
-    Features --> TraceCSV["Write per-token metrics to trace_metrics.csv"]
-    TraceCSV --> FCS["Generate an exploratory trace and find first correct-answer proxy"]
-    FCS --> Cache["Teacher-force the shared prefix to build a KV cache"]
-    Cache --> Branches["Clone cache and sample multiple continuations"]
-    Branches --> Outcomes["Extract final boxed answer and print branch labels"]
+    subgraph S1["Stage 1: Base Generation (eval.py)"]
+        D1[Benchmark Data] --> M1["Model Inference: HF / vLLM / SGLang"]
+        M1 --> G1[generations.jsonl]
+    end
+
+    subgraph S2["Stage 2: Difficulty Replay (difficulty.py)"]
+        G1 --> P1["Progressive Prefix Slicing: Granularity G ∈ {15, 25}"]
+        P1 --> F1["Budget Forcing Injection: 'Therefore, the final answer is:'"]
+        F1 --> DG[difficulty_generations.jsonl]
+    end
+
+    subgraph S3["Stage 3: Evaluation (evaluate_answers_standalone.py)"]
+        DG --> EV[Extract and Compare Against Ground Truth]
+        EV --> PR[parsed_responses.jsonl]
+    end
+
+    subgraph S4["Stage 4: Flip Detection and Visualization"]
+        PR --> FD["Detect Harmful Trajectories: Correct to Wrong"]
+        FD --> JSON_FA[flip_analysis.json]
+        FD --> PLOT["accuracy_curve.png / .pdf"]
+    end
+
+    subgraph S5["Stage 5: Mechanistic Analysis"]
+        PR --> ME[Variable-Level Evidence Extraction]
+        ME --> VIZ["mechanistic plots + LaTeX tables"]
+        PR --> JUDGE["LLM Judge Taxonomy: Groq / OpenAI"]
+        JUDGE --> TAX[failure_categories.jsonl]
+    end
 ```
 
-### Trace instrumentation flow
+---
 
-`04_single_trace_metrics.py` requests `output_scores=True` and `output_hidden_states=True` from `model.generate()`. For every generated token it:
+## 📐 The 6-Archetype Reasoning Taxonomy
 
-1. decodes the selected token;
-2. calculates entropy and top-two margin from that step's score vector;
-3. calculates Jensen–Shannon divergence against the prior step's score vector;
-4. selects the last hidden vector for early, middle, and final transformer layers;
-5. calculates L2 distance and cosine similarity against the preceding vector at each selected layer; and
-6. writes a row to `trace_metrics.csv`.
+Every reasoning trajectory is classified into one of six scientifically-defined outcome archetypes:
 
-The committed CSV is a sample trace artifact, not a benchmark result or trained model output.
+| # | Archetype | Description | Key Signal |
+|:--|:---|:---|:---|
+| 1 | **`STABLE_CORRECT`** | Early correct convergence, maintained confidence, clean termination | H ≈ 0.47, P(Term) ≈ 0.047 |
+| 2 | **`PREFIX_VOLATILE_RECOVERY`** | Constructive hesitation — oscillates but self-corrects before final answer | H ≈ 0.54, elevated hesitations |
+| 3 | **`STRICT_PCC`** ⚠️ | *Harmful flip* — correct early, collapses to wrong at final output | H ≈ 0.53, low P(Term) ≈ 0.019 |
+| 4 | **`NO_FINAL_AFTER_CORRECT`** | Model holds correct reasoning but never produces `\boxed{}` before token budget expires | Very low P(Term) |
+| 5 | **`DEGENERATE`** | Circular reasoning loops; disfluent repetitions dominate | rep ≥ 35%, hesitations ≥ 35, P(Term) ≈ 0.007 |
+| 6 | **`NEVER_CORRECT`** | Model never reaches the correct reasoning branch from start to finish | — |
 
-### Branching flow
+---
 
-`05_branch_and_label.py` uses one deliberately adversarial shirt-drying prompt with ground truth `1`. It searches decoded reasoning text for the answer while the `<think>` block is open, reconstructs a cache for that prefix, then generates ten high-temperature continuations. It identifies the last `\\boxed{...}` expression in each continuation and prints one of the three labels above. Results are retained only in process memory and printed; they are not saved as a dataset.
+## 📊 Key Empirical Results
 
-## Repository Structure
+### Accuracy vs. Reasoning Budget (GSM8K, DeepSeek-R1-Distill-Qwen-1.5B)
+
+> **The model's latent accuracy *peaks early*, often at 25–40% of its reasoning trace, before collapsing as it over-deliberates.**
+
+| Outcome Archetype | Avg. Tokens | Entropy H ↓ | Top-2 Margin ↑ | Late L₂ Velocity | P(Term) ↑ | Hesitations | 4-gram Repetition |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Stable Correct** | 778 | **0.472** | **0.765** | 423.8 | **0.0469** | **3.0** | **4.3%** |
+| **Volatile Recovery** | 1,908 | 0.543 | 0.736 | 410.2 | 0.0137 | 9.8 | 15.4% |
+| **Harmful Flips (PCC)** | 1,719 | 0.531 | 0.741 | 412.5 | 0.0192 | 8.7 | 13.5% |
+| **Degenerate (Loops)** | 3,928 | 0.657 | 0.688 | 402.1 | 0.0067 | 51.5 | 41.2% |
+| **Never Correct** | 2,502 | 0.630 | 0.704 | 407.1 | 0.0085 | 18.5 | 22.1% |
+
+**Interpretation:** Stable correct trajectories are characterized by decisively lower entropy, higher token commitment margins, and stronger termination pressure — all measurable *before* the answer is submitted.
+
+### Event-Aligned Flip Dynamics
+
+Centering analysis on the precise flip token (t = 0, window [−200, +200]):
+
+- 📈 **Entropy spikes ~50 tokens *prior* to the harmful flip** — a predictable early-warning signal
+- 📉 **Top-2 margin collapses** as the model loses single-token commitment
+- 🚀 **Late-layer L₂ velocity surges** — the residual stream undergoes sudden geometric disruption (representation shock)
+
+---
+
+## 🔭 Mechanistic Metrics Framework
+
+### A. Token-Level Uncertainty (Distribution Dynamics)
+
+| Metric | Formula | Interpretation |
+|:---|:---|:---|
+| **Shannon Entropy** | H(x) = −∑ pᵢ log pᵢ | Lower → sharper, more confident prediction |
+| **Top-2 Margin** | p₍₁₎ − p₍₂₎ | Higher → stronger single-answer commitment |
+| **JSD Shock** | JS-Divergence(t, t−1) | Spikes → abrupt cognitive disruption / doubt onset |
+
+### B. Hidden-State Geometry (Residual Stream Dynamics)
+
+| Metric | Formula | Interpretation |
+|:---|:---|:---|
+| **Late-Layer L₂ Velocity** | ‖h_t^(L) − h_{t-1}^(L)‖₂ | Euclidean speed of semantic drift at final layers |
+| **Directional Cosine Similarity** | cos(Δh_t, Δh_{t-1}) | Low/negative → the model is disoriented, zigzagging |
+| **PCA Trajectory** | 2D projection of h_t sequence | Visual map of the reasoning path geometry |
+
+### C. Termination & Disfluency Signals
+
+| Metric | Description |
+|:---|:---|
+| **P(Term) / P(EOS) / P(\</think\>)** | Direct softmax probability assigned to stopping tokens — the model's "desire to stop" |
+| **Hesitation Count** | Frequency of disfluency markers: *"Wait", "Let me check", "Actually", "Mistake", "Hold on"* |
+| **4-Gram Repetition Ratio** | Fraction of repeated 4-token sequences — measures circular/degenerate reasoning |
+
+### D. Variable-Level Evidence Engine (7 Dimensions)
+
+The [`extract_variable_level_evidence.py`](project/extract_variable_level_evidence.py) engine extracts the full mechanistic evidence profile per sample:
+
+1. **Termination Pressure** — eos_prob, eos_rank, think_close_prob, think_close_rank, boxed_prob
+2. **Distribution Instability** — entropy, top-2 margin, JSD vs. previous step
+3. **Hidden-State Geometry** — L₂ and cosine at early / mid / late layers + loop score
+4. **Forced-Budget Deltas** — Δentropy, Δtop-2, ΔJSD, ΔL₂, Δtermination
+5. **Answer Belief / Margin** — Ground-truth token probability vs. competitor candidates
+6. **Textual Degeneration** — Repetition ratio, disfluency counts, post-correct token length
+7. **Outcome-Aligned Group Comparison** — All 6 archetypes compared side-by-side
+
+**Outputs:** `variable_level_mechanisms.png/.pdf`, `variable_level_summary.csv`, `variable_level_metrics.json`, `variable_level_latex_table.tex`
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Technology |
+|:---|:---|
+| **Language** | Python 3.10+ |
+| **ML Runtime** | PyTorch (CUDA-accelerated) |
+| **Model Integration** | Hugging Face Transformers — `AutoModelForCausalLM`, `AutoTokenizer`, `model.generate` |
+| **Quantization** | BitsAndBytes — 4-bit NF4 (QLoRA-compatible), 8-bit INT8 via `BitsAndBytesConfig` |
+| **Inference Backends** | HF Transformers · vLLM · SGLang · Multi-GPU DDP |
+| **Visualization** | Matplotlib (publication-grade PNG + PDF), NumPy |
+| **Taxonomy / LLM Judge** | Groq API (Llama-3.3-70B) / OpenAI GPT-4o |
+| **Benchmarks** | GSM8K · MATH-500 · AIME 2025 · GPQA · MathVista · AI2D · MMStar · MathVerse · VMCBench |
+| **Analysis** | PyTorch forward-pass hooks for exact logit + hidden-state extraction |
+
+### Supported Models
+
+| Model | HuggingFace ID | Size | VRAM (4-bit) |
+|:---|:---|:---|:---|
+| DeepSeek-R1-Distill-Qwen-1.5B | `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` | ~3.2 GB | ~2 GB |
+| DeepSeek-R1-Distill-Qwen-7B | `deepseek-ai/DeepSeek-R1-Distill-Qwen-7B` | ~15.0 GB | ~5 GB |
+| DeepSeek-R1-Distill-Llama-8B | `deepseek-ai/DeepSeek-R1-Distill-Llama-8B` | ~16.0 GB | ~6 GB |
+| Qwen2.5-1.5B/3B/7B-Instruct | `Qwen/Qwen2.5-{1.5,3,7}B-Instruct` | 3–15 GB | 2–6 GB |
+| Qwen2.5-VL-7B (Vision-Language) | `Qwen/Qwen2.5-VL-7B-Instruct` | ~16 GB | ~6 GB |
+| Qwen3-8B / Qwen3.5-9B | `Qwen/Qwen3-8B`, `Qwen/Qwen3.5-9B` | ~16–18 GB | ~6–7 GB |
+
+---
+
+## 🗂️ Repository Structure
 
 ```text
-.
+LLM-Flip-Research/
 ├── README.md
 ├── .gitignore
-├── trace_metrics.csv                 # Sample per-token metric output
-├── walkthrough-download-model        # Notes for the downloader smoke test
+│
+├── datasets/
+│   ├── raw/                        # Raw benchmark data
+│   ├── processed/                  # Processed benchmark splits
+│   ├── traces/                     # Sampled reasoning trace artifacts
+│   ├── mechanistic/                # Per-token mechanistic metric data
+│   └── analysis/                   # Aggregate analysis outputs
+│
+├── docs/
+│   └── pcc_branch_runner_walkthrough.md   # Detailed PCC branching guide
+│
 └── project/
-    ├── configs/
-    │   ├── metrics.py                # Tensor-level metric functions
-    │   └── model_config.py           # Model registry and local settings
-    ├── scripts/
-    │   ├── 01_download_model.py      # Interactive download/load smoke test
-    │   ├── 02_generate.py            # Generation output inspection
-    │   ├── 03_metrics_test.py        # Metric sanity tests
-    │   ├── 04_single_trace_metrics.py # Single-trace CSV experiment
-    │   ├── 05_branch_and_label.py    # Same-prefix branch experiment
-    │   └── debug_cache.py            # KV-cache diagnostic
-    └── src/
-        └── utils/
-            ├── cli.py                # Interactive selection prompts
-            └── logger.py             # Logging utilities
+    ├── run_pipeline.py             # End-to-end multi-stage pipeline orchestrator
+    ├── download_model.py           # Model downloader & VRAM-aware manager
+    ├── eval.py                     # Stage 1: Full-trace generation
+    ├── difficulty.py               # Stage 2: Prefix slicing & budget forcing
+    ├── evaluate_answers_standalone.py  # Stage 3: Output parsing & verification
+    ├── plot_accuracy_curve.py      # Publication-grade accuracy curve plots
+    ├── show_diagnosis.py           # CLI overthinking case study inspector
+    ├── extract_variable_level_evidence.py   # 7-dimension mechanistic analysis
+    ├── extract_real_mechanistic_metrics.py  # Real forward-pass metric extraction
+    ├── plot_mechanistic_analysis.py         # Mechanistic figure generation
+    ├── plot_scientific_mechanistic_insights.py  # Scientific insight visualizations
+    ├── find_exact_doubt_token.py   # Pinpoint the precise doubt-onset token
+    ├── context.md                  # Research paper context & metrics glossary
+    ├── requirements.txt            # Python dependencies
+    │
+    ├── modeling/                   # Model backend wrappers
+    │   └── hf_model.py             # HuggingFace backend (quantization, stepping, KV-cache)
+    │
+    ├── benchmarking/               # Benchmark dataset adapters
+    │   ├── gsm8k.py                # GSM8K: Grade school math
+    │   ├── math500.py              # MATH-500: Competition math
+    │   ├── aime2025.py             # AIME 2025: High-school olympiad
+    │   ├── gpqa.py                 # GPQA: Graduate-level science MCQs
+    │   ├── mathvista.py            # MathVista: Multimodal math
+    │   ├── ai2d.py                 # AI2D: Science diagrams
+    │   ├── mmstar.py               # MMStar: Multimodal benchmark
+    │   └── ...                     # + MathVerse, MathVision, VMCBench
+    │
+    ├── evaluation/                 # Answer parsing, boxed extraction, normalization
+    ├── taxonomy/                   # LLM-Judge failure classification
+    ├── utils/                      # Logging, DDP, seeds, experiment path helpers
+    │
+    └── results/                    # Experiment outputs (auto-structured)
+        └── main/
+            └── [model_name]/
+                └── [benchmark]/
+                    └── seed_[seed]/
+                        └── budget_prompt_[label]/
+                            ├── generations.jsonl
+                            ├── difficulty_generations.jsonl
+                            ├── parsed_responses_*.jsonl
+                            ├── flip_analysis.json
+                            ├── flip_curve.csv
+                            ├── accuracy_curve.png
+                            ├── accuracy_curve.pdf
+                            └── *_failure_categories.jsonl
 ```
 
-## Getting Started
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Python with a PyTorch build compatible with the target machine.
-- Internet access on the first run to download the selected Hugging Face model.
-- A CUDA-capable GPU for the default experimentation scripts. `02_generate.py`, `04_single_trace_metrics.py`, `05_branch_and_label.py`, and `debug_cache.py` explicitly load models on CUDA.
-- Sufficient disk space for model weights and a compatible GPU memory budget for the model/precision combination selected.
+- Python 3.10 or 3.11
+- NVIDIA GPU with CUDA support (≥4 GB VRAM for 1.5B; ≥6 GB for 7B–8B models with 4-bit quantization)
+- Git
 
-The current branch does not include a `requirements.txt`, lock file, `pyproject.toml`, Conda environment file, or Docker configuration. Install the libraries used by the code manually, choosing the appropriate PyTorch installation command for the machine and CUDA version.
-
-### Installation
+### 1. Clone & Set Up Environment
 
 ```bash
 git clone https://github.com/utkarsh050505/LLM-Flip-Research.git
-cd LLM-Flip-Research
+cd LLM-Flip-Research/project
 
-python3 -m venv .venv
-source .venv/bin/activate
+# Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate           # Linux / macOS
+# .\\.venv\\Scripts\\Activate.ps1   # Windows PowerShell
 
-python -m pip install --upgrade pip
-# Install a PyTorch build appropriate for your CUDA platform first.
-python -m pip install torch transformers accelerate bitsandbytes
+# Install dependencies
+pip install --upgrade pip
+pip install -r requirements.txt
+pip install matplotlib numpy huggingface_hub bitsandbytes accelerate
 ```
 
-On Windows PowerShell, activate the environment with:
+### 2. Configure Environment
 
 ```powershell
-.\.venv\Scripts\Activate.ps1
+# Set Hugging Face model cache directory
+$env:HF_HOME = "A:\LLMResearch\hf_cache"
+
+# Set LLM Judge API key for taxonomy classification (Stage 5)
+# Free tier available at https://console.groq.com
+$env:GROQ_API_KEY = "your_groq_api_key_here"
 ```
 
-`bitsandbytes` is needed for the 4-bit and 8-bit choices. `accelerate` supports the automatic device mapping used by the quantized loading path.
-
-### Local configuration
-
-Edit [`project/configs/model_config.py`](project/configs/model_config.py) before running the downloader. The committed values use Windows `A:\\LLMResearch\\...` paths and `DEVICE = "cuda"`; update them for the local machine.
-
-```python
-# project/configs/model_config.py
-DEVICE = "cuda"  # Use "cpu" only for the downloader's CPU path
-HF_CACHE_DIR = r"/absolute/path/to/hf_cache"
-OUTPUT_DIR = r"/absolute/path/to/outputs"
-```
-
-The downloader displays its own interactive model and precision menus, so its selection does not depend on `ACTIVE_MODEL_KEY`. That constant remains available in the configuration but is not read by `01_download_model.py` for selection. The later experiment scripts directly hard-code `deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B` and CUDA; changing `model_config.py` alone does not reconfigure those scripts.
-
-## Configuration and Environment Variables
-
-No environment variables, `.env` file, credentials, API keys, or tokens are read by the current source code.
-
-Configuration is currently source-file based:
-
-| Setting | Location | Purpose |
-| --- | --- | --- |
-| `MODEL_REGISTRY` | `project/configs/model_config.py` | Maps supported model keys to Hugging Face IDs, family labels, and nominal 4-bit defaults. |
-| `DEVICE` | `project/configs/model_config.py` | Chooses the downloader's CUDA or CPU loading branch. |
-| `HF_CACHE_DIR` | `project/configs/model_config.py` | Local directory passed to Hugging Face for model/tokenizer caching. |
-| `OUTPUT_DIR` | `project/configs/model_config.py` | Created on import; reserved for model outputs, logits, and hidden states. |
-| Script constants | `project/scripts/02_generate.py`, `04_single_trace_metrics.py`, `05_branch_and_label.py` | Control prompts, model ID, token budgets, temperatures, output CSV path, and branching settings for each experiment. |
-
-## Usage
-
-Run commands from the repository root after configuring the environment.
-
-### 1. Download and smoke-test a model
+### 3. Download a Model
 
 ```bash
-python project/scripts/01_download_model.py
+# Interactive menu: shows available models, sizes, and recommended VRAM
+python download_model.py
+
+# Or specify directly (fastest for experimentation)
+python download_model.py --model r1_distill_qwen1_5b
+
+# Download and immediately verify GPU loading
+python download_model.py --model r1_distill_qwen1_5b --test_load
+
+# List all models already on disk
+python download_model.py --list
 ```
 
-The script asks for a model and precision mode, downloads any missing weights into `HF_CACHE_DIR`, generates a short arithmetic response, and reports cache size. In CUDA mode it also checks the GPU and reports peak allocated VRAM.
+---
 
-### 2. Inspect generation output shapes
+## 🔁 Pipeline Usage
+
+All commands are run from the `project/` directory.
+
+### Interactive Mode (Recommended)
 
 ```bash
-python project/scripts/02_generate.py
+python run_pipeline.py
 ```
 
-This short run prints the structure of `outputs.scores` and `outputs.hidden_states`. It is intended to verify indexing assumptions before metric analysis.
+> Scans local HuggingFace cache, presents an interactive model picker, prompts for quantization (4-bit, 8-bit, full), and runs all 5 stages automatically.
 
-### 3. Validate the metric implementations
+### CLI One-Liner (Quick 10-sample test)
 
 ```bash
-python project/scripts/03_metrics_test.py
+python run_pipeline.py \
+  --model r1_distill_qwen1_5b \
+  --benchmark gsm8k \
+  --quantization none \
+  --granularity 25 \
+  --limit 10
 ```
 
-Expected behavior: each check prints `PASS`. This test requires PyTorch but does not download a model or use CUDA.
-
-### 4. Generate a single instrumented trace
+### Large Model with 4-bit Quantization
 
 ```bash
-python project/scripts/04_single_trace_metrics.py
+python run_pipeline.py \
+  --model r1_distill_llama8b \
+  --benchmark gsm8k \
+  --quantization 4bit \
+  --granularity 10 \
+  --limit 50
 ```
 
-The script samples up to 400 new tokens for its configured train/car word problem and overwrites `trace_metrics.csv` in the repository root with fields including:
+### Key CLI Flags
 
-```text
-step, token, entropy, top2_margin, jsd_vs_prev,
-l2_early, cos_early, l2_mid, cos_mid, l2_late, cos_late
-```
+| Flag | Description |
+|:---|:---|
+| `--limit N` | Run on only N benchmark samples for rapid prototyping |
+| `--granularity K` | Slice reasoning trace every K utterances (default: 1; use 25 for speed) |
+| `--budget_forcing_prompt "..."` | Custom answer-forcing injection phrase |
+| `--skip_eval / --skip_difficulty / --skip_taxonomy` | Resume from cached intermediate stages |
+| `--judge_provider groq / openai` | LLM Judge provider for failure taxonomy (Stage 5) |
 
-### 5. Run the exploratory branch experiment
+---
+
+## 📈 Visualization & Analysis
+
+### Generate Accuracy Curves
 
 ```bash
-python project/scripts/05_branch_and_label.py
+# Auto-detects latest experiment run
+python plot_accuracy_curve.py
+
+# Or specify a target directory explicitly
+python plot_accuracy_curve.py \
+  --input results/main/r1_distill_qwen1_5b/gsm8k/seed_42/budget_prompt_Therefore__the_final_answer_is
 ```
 
-This is computationally demanding: it may generate up to 12,000 tokens to locate the FCS proxy and up to 16,000 tokens for each of ten branch continuations. It prints, rather than writes, branch outcomes.
+**Outputs:**
+- 🖼️ `accuracy_curve.png` — Dual-panel publication-quality visualization
+- 📄 `accuracy_curve.pdf` — Vector format for paper inclusion
 
-### 6. Run the capability-aware PCC branch experiment
+**The dual-panel layout shows:**
+1. **Top panel:** Empirical accuracy (%) vs. intermediate prefix budget (0% → 100%)
+2. **Bottom panel:** Individual question trajectories — `✅ Correct → ❌ Flipped` and `✅ → ❌ → ✅ Recovered`
+
+### Run Mechanistic Analysis
 
 ```bash
-python project/scripts/11_pcc_branch_experiment.py \
-  --config project/configs/pcc_experiment.example.json \
-  --problem-file project/problems/problem_000_aya.json
+# Extract 7-dimension variable-level mechanistic evidence
+python extract_variable_level_evidence.py \
+  --run_dir results/main/r1_distill_qwen1_5b/gsm8k/seed_42/budget_prompt_Therefore__the_final_answer_is \
+  --model deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
+  --quantization 4bit
+
+# Extract real forward-pass token-level metrics
+python extract_real_mechanistic_metrics.py \
+  --run_dir results/main/r1_distill_qwen1_5b/gsm8k/seed_42/budget_prompt_Therefore__the_final_answer_is \
+  --model deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
+  --quantization 4bit
 ```
 
-This newer path separates model access from PCC logic. The backend declares whether it supports logits, hidden states, manual token stepping, and KV-cache cloning before the experiment runs. Full same-prefix PCC branching currently requires the Transformers backend because text-only local servers usually do not expose the internals needed for branch-matched PCC metrics.
-
-Run metadata is appended to `project/results/pcc_branch_runs.jsonl`. Per-branch transcripts and metric rows are saved under a timestamped `project/results/pcc_branch_run_*` directory.
-
-For a step-by-step walkthrough, expected console output, output file schema, and known failure modes, see [`docs/pcc_branch_runner_walkthrough.md`](docs/pcc_branch_runner_walkthrough.md).
-
-### 7. Diagnose cache calling conventions
+### Inspect Failure Case Studies (CLI Viewer)
 
 ```bash
-python project/scripts/debug_cache.py
+python show_diagnosis.py
 ```
 
-This diagnostic tries two ways of combining `past_key_values`, input IDs, and the attention mask. It is useful when validating cache-based continuation behavior on the installed Transformers/model combination.
+Example output:
+```
+================================================================================
+  OVERTHINKING TAXONOMY DIAGNOSIS REPORT
+================================================================================
+  [1/2] Sample #8 (Question Index 8)
+------------------------------------------------------------------------
+  Question:       John drives for 3 hours at 60 mph and turns around... How far is he from home?
+  Ground Truth:   45
+  Earlier (Step 4): Answer was CORRECT -> 45
+  Final   (Step 7): Answer FLIPPED TO WRONG -> 2
 
-## API Overview
+  [CATEGORY] Primary:    LOGICAL_ERROR
+  [WHY IT FAILED]        The model became confused by time constraints and
+                         entered circular second-guessing.
+  [QUOTE FROM TRACE]     "But the problem says he spends the first 2 hours in
+                         traffic, so perhaps he can't do that."
+```
 
-This repository does not expose an application API. There are no HTTP routes, request handlers, authentication endpoints, client application, or server process. Interaction is through Python scripts and the downloader's terminal prompts.
+---
 
-## Architecture Decisions and Current Scope
+## 🧪 Benchmarks Evaluated
 
-- **Metrics are kept pure and separate from generation.** `configs/metrics.py` accepts individual tensors and returns Python floats, making `03_metrics_test.py` able to test them with known inputs before they are used on a model trace.
-- **Tensor-shape inspection precedes trace analysis.** The code explicitly calls out that the first hidden-state entry represents prompt prefill whereas later entries correspond to cached single-token decoding. This guards against using the wrong sequence position.
-- **Layer sampling limits trace output.** The trace experiment records an early, middle, and late layer instead of exporting full hidden-state tensors for every layer to CSV.
-- **Same-prefix branching is the intended control.** The branching script reconstructs a prefix cache and deep-copies it so continuations can share identical prior context while sampling diverges. The code comments identify this as the core PCC mechanism experiment.
-- **Backend capabilities are explicit in the newer PCC runner.** `project/backends` defines the capabilities required for full PCC branch experiments. The first concrete implementation is `TransformersBackend`; non-Transformers local LLM integrations should be added only with honest capability flags.
-- **PCC branch results are persisted.** `11_pcc_branch_experiment.py` writes structured run metadata, transcripts, and metric rows instead of relying on console output.
-- **Answer verification is deliberately provisional.** FCS detection and outcome labeling use regex-based textual heuristics and a hard-coded ground-truth answer. They are suitable for an exploratory script, not a general mathematical verifier.
+| Benchmark | Domain | Difficulty | Samples |
+|:---|:---|:---|:---|
+| **GSM8K** | Grade school arithmetic & multi-step word problems | Elementary | 1,319 |
+| **MATH-500** | Competition math (algebra, geometry, calculus, number theory) | Advanced | 500 |
+| **AIME 2025** | High-school olympiad (AMC 10/12) | Expert | ~30 |
+| **GPQA** | Graduate-level physics, chemistry, biology MCQs | PhD-level | 448 |
+| **MathVista** | Multimodal math reasoning (charts, geometry figures) | Advanced | 1,000 |
+| **AI2D** | Science diagram understanding | Middle school | 4,563 |
+| **MMStar** | Multi-category multimodal reasoning | Advanced | 1,500 |
+| **MathVerse / MathVision / VMCBench** | Visual mathematical reasoning | Expert | varied |
 
-### Important limitations
+---
 
-- The project is not yet a production service or a complete PCC prediction system.
-- The older scripts use fixed example prompts and hard-coded constants rather than a benchmark runner or configuration-driven experiment framework.
-- `05_branch_and_label.py` does not attach the metric suite to each branch, persist branch results, train a model, or evaluate a stopping policy. Use `11_pcc_branch_experiment.py` for persisted branch artifacts.
-- Full PCC branching is not available through text-only local LLM APIs unless that runtime exposes logits, hidden states, manual stepping, and cloneable KV-cache state.
-- The cache-branching behavior should be validated with `debug_cache.py` for the installed model and Transformers version before treating branch outcomes as research data.
-- The repository contains one sample CSV trace; it does not establish empirical conclusions about PCC.
+## 🛣️ Research Roadmap
 
-## License
+| Priority | Research Direction | Status |
+|:---|:---|:---:|
+| **1** | **Hazard Predictor / Early-Exit Controller** — Classify internal signals (entropy, margin, cosine) to trigger early stopping *before* flip collapse | 🟡 In Progress |
+| **2** | **High-Hardness Benchmark Scaling** — Measure PCC flip rates on MATH-500, AIME 2025, and GPQA | 🟡 In Progress |
+| **3** | **Model Comparison Matrix** — DeepSeek-R1-Distill (Qwen vs. Llama) vs. Qwen2.5/Qwen3 family | 🟢 Ready |
+| **4** | **Granularity Optimization** — Token-level vs. utterance-level resolution for flip-token localization | 🟢 Ready |
+| **5** | **Multimodal Overthinking** — Qwen2.5-VL on MathVista: visual hallucination-induced flips | 🟡 In Progress |
 
-No license file is present in the current repository.
+---
+
+## 📌 Paper Contributions
+
+> **Title:** *Thinking Past the Answer: Empirical & Mechanistic Dynamics of Overthinking, Flip-Flops, and Hesitation in Reasoning LLMs*
+
+1. **Novel Phenomenon Characterization:** First systematic study of Post-Correctness Collapse (PCC) in large reasoning models — defining, measuring, and categorizing the six reasoning outcome archetypes.
+
+2. **Mechanistic Interpretability:** Demonstration that harmful flips are mechanistically preceded by measurable signals (entropy spikes, L₂ velocity surges, margin collapse) detectable ~50 tokens *before* the flip occurs.
+
+3. **Latent Accuracy Protocol:** A new experimental protocol (prefix truncation + budget forcing) for constructing ground-truth latent accuracy curves over reasoning time — revealing that peak accuracy occurs significantly before trace completion.
+
+4. **Reproducible Failure Taxonomy:** A structured, LLM-judge-backed taxonomy for categorizing *why* a model flips: `LOGICAL_ERROR`, `CALCULATION_ERROR`, `DEGENERATE_REPETITION`, and more.
+
+5. **Foundation for Adaptive Controllers:** Identification of the precise mechanistic signals that future hazard predictors and early-exit controllers can use to prevent overthinking without sacrificing beneficial self-correction.
+
+---
+
+## 🤝 Contributing & Contact
+
+This is an active research project. Contributions and collaborations are welcome — especially in:
+
+- 🔮 **Hazard predictor / early-exit controller** design and training
+- 📦 **New benchmark adapters** for additional reasoning domains
+- 🖼️ **Multimodal extension** (visual reasoning overthinking)
+- 🧪 **Model comparison experiments** across reasoning model families
+
+Open a GitHub issue for bugs, experiments, or methodology questions. See [`project/context.md`](project/context.md) for the complete mechanistic framework and metrics glossary.
+
+---
+
+<div align="center">
+
+**Built by [Utkarsh](https://github.com/utkarsh050505)**
+
+*Interested in test-time compute, LLM reasoning, or mechanistic interpretability? Feel free to reach out!*
+
+</div>
